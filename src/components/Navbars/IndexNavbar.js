@@ -1,25 +1,13 @@
-/*!
-
-=========================================================
-* Paper Kit React - v1.0.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/paper-kit-react
-
-* Copyright 2019 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/paper-kit-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faHome,
+  faMapMarkedAlt,
+  faSignInAlt,
+  faUserPlus,
+  faUserCircle,
+} from "@fortawesome/free-solid-svg-icons";
 import React from "react";
-// nodejs library that concatenates strings
 import classnames from "classnames";
-// reactstrap components
 import {
   Button,
   Collapse,
@@ -28,18 +16,15 @@ import {
   NavItem,
   NavLink,
   Nav,
-  Container
+  Container,
 } from "reactstrap";
-
-function IndexNavbar() {
+function IndexNavbar(props) {
   const [navbarColor, setNavbarColor] = React.useState("navbar-transparent");
   const [navbarCollapse, setNavbarCollapse] = React.useState(false);
-
   const toggleNavbarCollapse = () => {
     setNavbarCollapse(!navbarCollapse);
     document.documentElement.classList.toggle("nav-open");
   };
-
   React.useEffect(() => {
     const updateNavbarColor = () => {
       if (
@@ -54,9 +39,7 @@ function IndexNavbar() {
         setNavbarColor("navbar-transparent");
       }
     };
-
     window.addEventListener("scroll", updateNavbarColor);
-
     return function cleanup() {
       window.removeEventListener("scroll", updateNavbarColor);
     };
@@ -67,16 +50,15 @@ function IndexNavbar() {
         <div className="navbar-translate">
           <NavbarBrand
             data-placement="bottom"
-            href="/index"
-            target="_blank"
-            title="Coded by Creative Tim"
+            href="/"
+            title="Best Saudi Tourism Company"
           >
-            Paper Kit React
+            Trip To Go
           </NavbarBrand>
           <button
             aria-expanded={navbarCollapse}
             className={classnames("navbar-toggler navbar-toggler", {
-              toggled: navbarCollapse
+              toggled: navbarCollapse,
             })}
             onClick={toggleNavbarCollapse}
           >
@@ -92,73 +74,71 @@ function IndexNavbar() {
         >
           <Nav navbar>
             <NavItem>
-              <NavLink
-                data-placement="bottom"
-                href="https://twitter.com/CreativeTim?ref=creativetim"
-                target="_blank"
-                title="Follow us on Twitter"
-              >
-                <i className="fa fa-twitter" />
-                <p className="d-lg-none">Twitter</p>
+              <NavLink data-placement="bottom" href="/" title="Go Home">
+                <i>
+                  <FontAwesomeIcon size="lg" icon={faHome} />{" "}
+                </i>
+                <p className="d-lg-none">HOME</p>
               </NavLink>
             </NavItem>
             <NavItem>
               <NavLink
                 data-placement="bottom"
-                href="https://www.facebook.com/CreativeTim?ref=creativetim"
-                target="_blank"
-                title="Like us on Facebook"
+                href="/trips"
+                title="Explore Our Trips"
               >
-                <i className="fa fa-facebook-square" />
-                <p className="d-lg-none">Facebook</p>
+                <i>
+                  <FontAwesomeIcon size="lg" icon={faMapMarkedAlt} />{" "}
+                </i>
+                <p className="d-lg-none">TRIPS</p>
               </NavLink>
             </NavItem>
-            <NavItem>
-              <NavLink
-                data-placement="bottom"
-                href="https://www.instagram.com/CreativeTimOfficial?ref=creativetim"
-                target="_blank"
-                title="Follow us on Instagram"
-              >
-                <i className="fa fa-instagram" />
-                <p className="d-lg-none">Instagram</p>
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink
-                data-placement="bottom"
-                href="https://www.github.com/CreativeTimOfficial/paper-kit-react?ref=creativetim"
-                target="_blank"
-                title="Star on GitHub"
-              >
-                <i className="fa fa-github" />
-                <p className="d-lg-none">GitHub</p>
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink
-                href="https://demos.creative-tim.com/paper-kit-react/#/documentation?ref=pkr-index-navbar"
-                target="_blank"
-              >
-                <i className="nc-icon nc-book-bookmark" /> Documentation
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <Button
-                className="btn-round"
-                color="danger"
-                href="#pablo"
-                target="_blank"
-                disabled
-              >
-                Upgrade to Pro
-              </Button>
-            </NavItem>
+
+            {props.isLogin ? (
+              <>
+                <NavItem>
+                  <NavLink
+                    data-placement="bottom"
+                    href="/profile"
+                    title="Your Profile"
+                  >
+                    <i>
+                      {" "}
+                      <FontAwesomeIcon size="lg" icon={faUserCircle} />{" "}
+                    </i>
+                    <p className="d-lg-none">PROFILE</p>
+                  </NavLink>
+                </NavItem>
+                <NavItem>
+                  <Button
+                    onClick={() => {
+                      props.isLogout();
+                    }}
+                    className="btn-round"
+                    color="danger"
+                  >
+                    LOG OUT
+                  </Button>
+                </NavItem>
+              </>
+            ) : (
+              <>
+                <NavItem>
+                  <NavLink href="/signin">
+                    <FontAwesomeIcon size="lg" icon={faSignInAlt} /> Sign In
+                  </NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink href="/signup">
+                    <FontAwesomeIcon size="lg" icon={faUserPlus} /> Sign Up
+                  </NavLink>
+                </NavItem>
+              </>
+            )}
           </Nav>
         </Collapse>
       </Container>
     </Navbar>
   );
 }
-
 export default IndexNavbar;
