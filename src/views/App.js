@@ -3,7 +3,10 @@ import jwt_decode from "jwt-decode";
 import IndexNavbar from "components/Navbars/IndexNavbar.js";
 import IndexHeader from "components/Headers/IndexHeader.js";
 import DemoFooter from "components/Footers/DemoFooter.js";
-function Index() {
+import SectionLogin from "./index-sections/SectionLogin.jsx";
+import { Route, Switch, Redirect } from "react-router-dom";
+import SignupUser from "./index-sections/SignupUser"
+function App() {
   const [user, setUser] = useState(null);
   const [isLogin, setIsLogin] = useState(false);
 
@@ -36,9 +39,20 @@ function Index() {
       <IndexNavbar isLogout={isLogout} userSignin={userSignin} />
       <IndexHeader />
       <div className="main">
+        <Switch>
+          <Route
+            path="/signin"
+            render={(props) => <SectionLogin {...props} />}
+          />
+                    <Route
+            path="/usersignup"
+            render={(props) => <SignupUser {...props} />}
+          />
+          <Redirect to="/" />
+        </Switch>
         <DemoFooter />
       </div>
     </>
   );
 }
-export default Index;
+export default App;
