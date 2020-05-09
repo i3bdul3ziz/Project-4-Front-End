@@ -4665,18 +4665,14 @@ License - nucleoapp.com/license/
     margin-top: 10px;
     right: -15px; }
 
-.presentation-title {
-  font-size: 8em;
-  font-weight: 700;
-  margin: 0;
-  color: #FFFFFF;
-  background: #fbf8ec;
-  background: -moz-linear-gradient(top, #FFFFFF 35%, #4e6773 100%);
-  background: -webkit-linear-gradient(top, #FFFFFF 35%, #4e6773 100%);
-  background: -ms-linear-gradient(top, #FFFFFF 35%, #4e6773 100%);
-  background: linear-gradient(to bottom, #FFFFFF 35%, #4e6773 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent; }
+.presentation-title1 {
+  font-size: 5em !important;
+  margin: -50% 0 0 0 !important;
+  /* margin-top: -40% !important; */
+  background: #fbf8ec !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+ }
 
 .presentation-subtitle {
   font-size: 1.7em;

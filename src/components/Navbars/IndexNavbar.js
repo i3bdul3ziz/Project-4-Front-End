@@ -18,6 +18,8 @@ import {
   Nav,
   Container,
 } from "reactstrap";
+import logo from "../../assets/img/loogo.png"
+
 function IndexNavbar(props) {
   const [navbarColor, setNavbarColor] = React.useState("navbar-transparent");
   const [navbarCollapse, setNavbarCollapse] = React.useState(false);
@@ -52,8 +54,9 @@ function IndexNavbar(props) {
             data-placement="bottom"
             href="/"
             title="Best Saudi Tourism Company"
+           
           >
-            Trip To Go
+           <img width={150} hieght={100} src={logo}/>
           </NavbarBrand>
           <button
             aria-expanded={navbarCollapse}
@@ -129,7 +132,7 @@ function IndexNavbar(props) {
                   </NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink href="/usersignup">
+                  <NavLink href="/signup">
                     <FontAwesomeIcon size="lg" icon={faUserPlus} /> Sign Up
                   </NavLink>
                 </NavItem>
