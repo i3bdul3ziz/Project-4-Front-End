@@ -1,25 +1,8 @@
-/*!
 
-=========================================================
-* Paper Kit React - v1.0.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/paper-kit-react
-
-* Copyright 2019 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/paper-kit-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 import React from "react";
 import "assets/css/sign.css";
 
-// reactstrap components
+
 import {
   Button,
   Card,
@@ -33,7 +16,6 @@ import {
   Col,
 } from "reactstrap";
 
-// core components
 
 function SignupUser() {
   return (
@@ -43,7 +25,7 @@ function SignupUser() {
           <div id="signin">
             <br /> <br />
             <br />
-            <h2>SIGN UP</h2>
+            <h3>SIGN UP</h3>
             <br />
             <form>
               <Row>
@@ -73,11 +55,11 @@ function SignupUser() {
                 <input type="password" class="text-input" />
               </div>
               <button type="submit" class="primary-btn">
-                Sign In
+                Sign Up
               </button>
             </form>
             <div class="links">
-              <a href="#">If you are a company, click here</a>
+              <a href="/companysignup">If you are a company, click here</a>
             </div>
           </div>
         </div>
@@ -85,10 +67,10 @@ function SignupUser() {
           <div id="showcase">
             <div class="showcase-content">
               <h1 class="showcase-text">
-                Let's create the future <strong>together</strong>
+              Let's explore <strong>together</strong>
               </h1>
               <a href="/" class="secondary-btn">
-                Check our trips out!{" "}
+                Check out our trips!{" "}
               </a>
             </div>
           </div>
