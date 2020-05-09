@@ -121,7 +121,7 @@ h6 {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: url("https://images.unsplash.com/photo-1528125690518-78367d176b9e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=3067&q=80")
+  background:linear-gradient( rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5) ), url("https://images.unsplash.com/photo-1528125690518-78367d176b9e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=3067&q=80")
     no-repeat center center / cover;
   height: 100vh;
   text-align: center;
@@ -230,4 +230,7 @@ h6 {
   #main-footer {
     padding-top: 1rem;
   }
+}
+.section-dark{
+  background-color: #0b1011;
 }

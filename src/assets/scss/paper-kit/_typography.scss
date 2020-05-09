@@ -68,7 +68,7 @@ h1 small, h2 small, h3 small, h1 .small, h2 .small, h3 .small {
     text-transform: uppercase;
 }
 .description{
-    color: $dark-gray;
+    color: $card-black-color;
 }
 blockquote small{
     font-style: normal;
@@ -128,6 +128,8 @@ blockquote small{
     margin-top: 30px;
     margin-bottom: 25px;
     min-height: 32px;
+    color: #204051;
+    font-weight: 400;
 }
 .title.text-center{
     margin-bottom: 50px;

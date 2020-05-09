@@ -1,25 +1,7 @@
-/*!
 
-=========================================================
-* Paper Kit React - v1.0.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/paper-kit-react
-
-* Copyright 2019 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/paper-kit-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 import React from "react";
 import "assets/css/sign.css";
 
-// reactstrap components
 import {
   Button,
   Card,
@@ -33,8 +15,6 @@ import {
   Col,
 } from "reactstrap";
 
-// core components
-
 function SectionLogin() {
   return (
     <div className="body1">
@@ -45,7 +25,7 @@ function SectionLogin() {
             <br />
             <br />
             <br />
-            <h2>SIGNIN</h2>
+            <h2>SIGN IN</h2>
             <br />
             <br />
             <form>
@@ -75,7 +55,7 @@ function SectionLogin() {
           </div>
         </div>
         <div id="right">
-          <div id="showcase">
+          <div id="showcase" className="section-dark">
             <div class="showcase-content">
               <h1 class="showcase-text">
                 Let's create the future <strong>together</strong>

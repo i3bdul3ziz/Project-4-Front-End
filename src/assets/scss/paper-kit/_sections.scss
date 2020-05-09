@@ -41,11 +41,16 @@
     .card-plain .card-title{
         color: $white-color !important;
     }
+
     .category,
     .description,
     .card-plain .card-description,
     .card-plain .card-category{
         color: rgba($white-color, .7);
+    }
+
+    .desc-color{
+        color: black !important;
     }
     hr{
         border-color: rgba(255, 255, 255, 0.19);

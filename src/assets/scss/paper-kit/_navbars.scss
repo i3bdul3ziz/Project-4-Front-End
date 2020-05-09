@@ -13,7 +13,7 @@
     transition: all 0.4s;
     -webkit-transition: all 0.4s;
     padding: 0;
-    background: $white-color;
+    background: rgba(0, 0, 0, 0.4);;
     box-shadow: 0 6px 10px -4px rgba(0, 0, 0, 0.15);
 
     .navbar-brand {
@@ -21,7 +21,7 @@
         margin: $navbar-margin-brand;
         padding: $navbar-padding-brand;
         font-size: $font-size-base;
-        color: $default-color;
+        color: $white-color;
         text-transform: uppercase;
     }
     .navbar-toggler:focus {
@@ -48,7 +48,7 @@
             font-size: $font-size-small;
             text-transform: uppercase;
             font-weight: 600;
-            color: $default-color;
+            color: $white-color;
 
             p {
               margin: 0px 0px;
@@ -82,12 +82,17 @@
         }
     }
     .navbar-collapse{
-        & .nav-item{
-            & .nav-link{
-                p{
-                    display: inline;
-                }
-            }
+      & .nav-item{
+        & .nav-link:hover{
+           color: #204051;
+
+        }
+        // & .nav-item{
+        //     & .nav-link{
+        //         p{
+        //             display: inline;
+        //         }
+        //     }
             & .dropdown-item{
                 i{
                     margin: 0 10px;
@@ -222,7 +227,7 @@
         .nav-item .nav-link:hover,
         .nav-item .nav-link:focus{
             background-color: transparent;
-            color: $white-color;
+            color: #ffa41b;
             @include opacity(1);
         }
         .nav .nav-item a.btn:hover{

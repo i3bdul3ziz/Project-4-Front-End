@@ -6,6 +6,10 @@ import DemoFooter from "components/Footers/DemoFooter.js";
 import SectionLogin from "./index-sections/SectionLogin.jsx";
 import { Route, Switch, Redirect } from "react-router-dom";
 import SignupUser from "./index-sections/SignupUser"
+import Home from "./index-sections/Home.js";
+import SignupCompany from "./index-sections/SignupCompany.js";
+import UserTypes from "./index-sections/UserTypes.js";
+
 function App() {
   const [user, setUser] = useState(null);
   const [isLogin, setIsLogin] = useState(false);
@@ -37,18 +41,30 @@ function App() {
   return (
     <>
       <IndexNavbar isLogout={isLogout} userSignin={userSignin} />
-      <IndexHeader />
+     
       <div className="main">
         <Switch>
           <Route
             path="/signin"
             render={(props) => <SectionLogin {...props} />}
           />
+            <Route
+            path="/home"
+            render={(props) => <Home {...props} />}
+          />
                     <Route
             path="/usersignup"
             render={(props) => <SignupUser {...props} />}
           />
-          <Redirect to="/" />
+                  <Route
+            path="/companysignup"
+            render={(props) => <SignupCompany {...props} />}
+          />
+                  <Route
+            path="/signup"
+            render={(props) => <UserTypes {...props} />}
+          />
+          <Redirect to="/home" />
         </Switch>
         <DemoFooter />
       </div>

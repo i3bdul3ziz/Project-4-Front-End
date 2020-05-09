@@ -87,8 +87,21 @@
 }
 .info{
     .icon{
+        .icon-color{
+            color: #ffa41b
+        }
+        .icon-color1{
+            color: #005082
+        }
+        .icon-color2{
+            color: #00a8cc
+        }
+        .icon-color3{
+            color: #c1a57b
+        }
         margin-top: 0;
         font-size: 3.4em;
+        color: blue;
     }
 }
 .icon-primary{
@@ -109,3 +122,4 @@
 .icon-neutral{
     color: $white-color;
 }
+
