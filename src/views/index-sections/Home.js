@@ -12,7 +12,7 @@ function Home() {
     <div> 
       <IndexHeader />
       <AboutWebsite /> 
-      <TripTypes />
+      {/* <TripTypes /> */}
     </div>
   );
 }
