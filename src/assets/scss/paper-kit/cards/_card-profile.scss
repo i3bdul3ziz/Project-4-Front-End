@@ -1,3 +1,10 @@
+.cardbackgroung{
+  background-color: #204051 !important;
+  color: white !important;
+}
+.teamtitle{
+  color: white !important;
+}
 .card-profile {
   margin-top: 30px;
   text-align: center;
@@ -12,10 +19,12 @@
   .card-body {
     .card-title {
       margin-top: 5px !important;
+      color: white;
     }
     .card-category {
       margin-bottom: 5px;
       margin-top: 5px;
+      color: white;
     }
   }
 

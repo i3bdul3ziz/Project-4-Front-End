@@ -42,7 +42,7 @@
         }
     }
     .card-description{
-        color: $dark-gray;
+        color: rgb(201, 195, 195);
         margin-bottom: 5px;
         margin-top: 15px;
     }
@@ -122,6 +122,7 @@
 
     .author{
         display: inline-block;
+        color: white !important;
         .avatar{
             width: 30px;
             height: 30px;

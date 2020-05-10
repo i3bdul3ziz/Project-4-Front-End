@@ -1,14 +1,20 @@
 import React, { useEffect, useState } from "react";
+import '../assets/css/app.css'
 import jwt_decode from "jwt-decode";
 import IndexNavbar from "components/Navbars/IndexNavbar.js";
-import IndexHeader from "components/Headers/IndexHeader.js";
 import DemoFooter from "components/Footers/DemoFooter.js";
 import SectionLogin from "./index-sections/SectionLogin.jsx";
 import { Route, Switch, Redirect } from "react-router-dom";
-import SignupUser from "./index-sections/SignupUser"
+import SignupUser from "./index-sections/SignupUser";
 import Home from "./index-sections/Home.js";
 import SignupCompany from "./index-sections/SignupCompany.js";
 import UserTypes from "./index-sections/UserTypes.js";
+import FamilyTrip from '../components/FamilyTrip/FamilyTrip'
+import FriendsTrip from '../components/FreindsTrip/FriendsTrip'
+import SinglePersonTrip from "components/SinglePersonTrips/SinglePersonTrip";
+import MagicTrip from "components/MagicTrip/MagicTrip.jsx";
+import SectionNavbars from "../views/index-sections/SectionNavbars";
+import SingleTripShow from "assets/scss/paper-kit/ShowPages/SingleTripShow";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -41,29 +47,29 @@ function App() {
   return (
     <>
       <IndexNavbar isLogout={isLogout} userSignin={userSignin} />
-     
+
       <div className="main">
         <Switch>
           <Route
             path="/signin"
             render={(props) => <SectionLogin {...props} />}
           />
-            <Route
-            path="/home"
-            render={(props) => <Home {...props} />}
-          />
-                    <Route
+          <Route path="/home" render={(props) => <Home {...props} />} />
+          <Route
             path="/usersignup"
             render={(props) => <SignupUser {...props} />}
           />
-                  <Route
+          <Route
             path="/companysignup"
             render={(props) => <SignupCompany {...props} />}
           />
-                  <Route
-            path="/signup"
-            render={(props) => <UserTypes {...props} />}
-          />
+          <Route path="/signup" render={(props) => <UserTypes {...props} />} />
+          <Route path="/familytrip" render={(props) => <FamilyTrip {...props} />} />
+          <Route path="/friendstrip" render={(props) => <FriendsTrip {...props} />} />
+          <Route path="/indpendenttrip" render={(props) => <SinglePersonTrip {...props} />} />
+          <Route path="/magictrip" render={(props) => <MagicTrip {...props} />} />
+          <Route path="/test" render={(props) => <SectionNavbars {...props} />} />
+          <Route path="/Tripshow" render={(props) => <SingleTripShow {...props} />} />
           <Redirect to="/home" />
         </Switch>
         <DemoFooter />

@@ -1,9 +1,12 @@
 $bg-color: #e6e5e1;
 $shdow-gray: #d3d3d5;
-$orange: #da4d1d;
+$orange: #FE6845;
 $blue: #2b26c3;
-$img-url: "https://images.unsplash.com/photo-1525543907410-b2562b6796d6?ixlib=rb-0.3.5&s=9ff8e5e718a6a40cbd0e1471235912f4&auto=format&fit=crop&w=3452&q=80";
-$img-url2: "https://images.unsplash.com/photo-1528785198459-ec50485704c7?ixlib=rb-0.3.5&s=3a2fc3039516555bbb2e9cd2967bd321&auto=format&fit=crop&w=1537&q=80";
+$img-url: "https://www.sayidy.net/sites/default/files/styles/660xauto/public/main/articles/%D8%B9%D9%84%D8%A7%D9%85%D8%A7%D8%AA%20%D8%AA%D8%AF%D9%84%20%D8%B9%D9%84%D9%89%20%D8%A3%D9%86%D9%83%20%D8%AA%D8%B9%D9%8A%D8%B4%20%D8%B6%D9%85%D9%86%20%D8%B9%D8%A7%D8%A6%D9%84%D8%A9%20%D8%AC%D9%85%D9%8A%D9%84%D8%A9.jpg?itok=LNQTlLud";
+$img-url2: "https://image.freepik.com/free-photo/group-friends-taking-selfie-arab-restaurant_23-2147794325.jpg";
+$img-url3: "https://outdoorgearlab-mvnab3pwrvp3t0.stackpathdns.com/photos/22/21/343652_18853_L2.jpg";
+$img-url4: "https://ae01.alicdn.com/kf/HTB1sCdLasfrK1RkSmLyq6xGApXaZ/LIFE-MAGIC-BOX-Fond-Studio-Photo-Blue-Lights-Stage-Back-Drops-for-Photography-Camera-Fotografica-Profissional.jpg";
+
 
 * {
   margin: 0;
@@ -11,7 +14,7 @@ $img-url2: "https://images.unsplash.com/photo-1528785198459-ec50485704c7?ixlib=r
   box-sizing: border-box;
 }
 
-i {
+.ii {
   opacity: 0;
   font-size: 18px;
   color: #fff;
@@ -22,7 +25,7 @@ i {
   transition: all 0.2s ease;
 }
 
-h2 {
+.tripname {
   pointer-events: none;
 }
 
@@ -32,15 +35,31 @@ body {
   height: 100vh;
 }
 
-.container {
+@media only screen and (max-width: 1024px) {
+  .container1{
+margin: 0 25% !important;
+#triptitle{
+  margin: 20px 25% 50px -25% !important;
+}
+  }
+}
+
+.container1 {
+  
   width: 100%;
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  margin: 50px 0 80px 0;
+  
 
-  .card {
+#triptitle{
+    margin: 20px 0 50px 0;
+}
+
+  .card5 {
     position: relative;
     width: 500px;
     height: 200px;
@@ -86,7 +105,7 @@ body {
         background-color: $bg-color;
       }
     }
-    h2 {
+    .tripname {
       z-index: 99;
       font-family: "Poppins", sans-serif;
       position: absolute;
@@ -105,7 +124,7 @@ body {
       font-size: 40px;
       cursor: pointer;
     }
-    p {
+    .triptype {
       z-index: 99;
       position: absolute;
       top: 20px;
@@ -127,42 +146,6 @@ body {
       filter: grayscale(100%);
     }
 
-    .social {
-      position: absolute;
-      left: 60px;
-      top: 0;
-      display: -webkit-box;
-      display: -ms-flexbox;
-      display: flex;
-      -ms-flex-pack: distribute;
-      justify-content: space-around;
-      -webkit-box-align: center;
-      -ms-flex-align: center;
-      align-items: center;
-      width: 180px;
-      height: 64px;
-      border-radius: 80px;
-    }
-
-    .social i:nth-of-type(1) {
-      -webkit-transition-delay: 0.4s;
-      transition-delay: 0.4s;
-    }
-
-    .social i:nth-of-type(2) {
-      -webkit-transition-delay: 0.3s;
-      transition-delay: 0.3s;
-    }
-
-    .social i:nth-of-type(3) {
-      -webkit-transition-delay: 0.2s;
-      transition-delay: 0.2s;
-    }
-
-    .social i:nth-of-type(4) {
-      -webkit-transition-delay: 0.1s;
-      transition-delay: 0.1s;
-    }
 
     &:hover i {
       opacity: 1;
@@ -184,7 +167,7 @@ body {
       transition: all 0.3s ease;
       mix-blend-mode: hard-light;
 
-      i {
+      .fa-arrow-right {
         font-size: 3rem;
       }
     }
@@ -207,7 +190,25 @@ body {
       background-image: url($img-url2);
     }
     button {
-      background-color: $blue;
+      background-color: #40BAD5;
+    }
+  }
+  
+  .card3 {
+    .pic {
+      background-image: url($img-url3);
+    }
+    button {
+      background-color:#004445;
+    }
+  }
+
+  .card4 {
+    .pic {
+      background-image: url($img-url4);
+    }
+    button {
+      background-color: #FCBF1E;
     }
   }
 }

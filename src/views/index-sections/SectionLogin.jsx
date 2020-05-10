@@ -58,7 +58,7 @@ function SectionLogin() {
           <div id="showcase" className="section-dark">
             <div class="showcase-content">
               <h1 class="showcase-text">
-                Let's create the future <strong>together</strong>
+              Let's explore <strong>together</strong>
               </h1>
               <a href="/" class="secondary-btn">
                 Check our trips out!{" "}

@@ -4,7 +4,8 @@ import IndexNavbar from "components/Navbars/IndexNavbar.js";
 import IndexHeader from "components/Headers/IndexHeader.js";
 import DemoFooter from "components/Footers/DemoFooter.js";
 import AboutWebsite from "components/AboutWebsite/AboutWebsite";
-import TripTypes from "components/TripTypes/TripTypes"
+import TripTypes from "components/TripTypes/TripTypes";
+import Team from "components/Team/Team"
 
 function Home() {
   
@@ -12,7 +13,8 @@ function Home() {
     <div> 
       <IndexHeader />
       <AboutWebsite /> 
-      {/* <TripTypes /> */}
+      <TripTypes />
+      <Team />
     </div>
   );
 }
