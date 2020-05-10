@@ -58,8 +58,7 @@ function Team() {
                <h6 className="card-category">Full-Stack Developer</h6>
              </div>
            <p className="card-description text-center">
-           A competitive eSports professional gamer turned into a proactive and enthusiastic computer scientist 
-           with passion and ambition to ever developing in the field of software engineering.
+           A proactive and enthusiastic computer scientist with passion and ambition to ever developing in the field of software engineering. Striving for excellency and efficiency in creative problem-solving. With proven abilities in troubleshooting.
             
            </p>
          </CardBody>
