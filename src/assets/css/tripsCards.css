@@ -1,0 +1,42 @@
+.fontStyle{
+    font-family: monospace !important;
+    color: #abacad;
+}
+.cardTextStyle{
+    font-size: 20px !important;
+    color: #66615b !important;
+}
+
+.cardButtonStyle{
+    background: #8DB1AB;
+    border: none !important;
+}
+.cardButtonStyle:hover{
+    background: rgb(110, 136, 132);
+}
+
+.fTripsSection{
+    width: 100% !important;
+    background-color: #fff !important;
+}
+
+.friendsCardButtonStyle{
+    background: #287ec7;
+    border: none !important;
+}
+.friendsCardButtonStyle:hover{
+    background: #1d5d94;
+}
+
+.SinglePCardButtonStyle{
+    background: #c79568;
+    border: none !important;
+}
+.SinglePCardButtonStyle:hover{
+    background: #805f42;
+}
+
+.selector-color{
+    color: black !important;
+    font-weight: 400 !important;
+}
