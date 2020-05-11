@@ -1,10 +1,9 @@
 .card-register {
-  background-color: #FF8F5E;
+  background-color: #f1e3cb;
   border-radius: 8px;
-  color: #fff;
+  color: black;
   max-width: 350px;
   margin: 20px 0 70px;
-  min-height: 400px;
   padding: 30px;
 
   & label {
@@ -25,3 +24,5 @@
     border: 1px solid $white-color;
   }
 }
+
+
