@@ -52,13 +52,13 @@ function App() {
   });
   return (
     <>
-      <IndexNavbar isLogout={isLogout} userSignin={userSignin} />
+      <IndexNavbar isLogout={isLogout} isLogin={isLogin} userSignin={userSignin} />
 
       <div className="main">
         <Switch>
           <Route
             path="/signin"
-            render={(props) => <SectionLogin {...props} />}
+            render={(props) => <SectionLogin {...props} userSignin={userSignin}/>}
           />
           <Route path="/home" render={(props) => <Home {...props} />} />
           <Route
@@ -81,7 +81,7 @@ function App() {
           <Route path="/createtrip" render={(props) => <CreatePage {...props} />} />
           <Route path="/edittrip" render={(props) => <EditPage {...props} />} />
           <Route path="/forgotpass" render={(props) => <Forgot {...props} />} />
-          <Route path="/resetpass" render={(props) => <Reset {...props} />} />
+          <Route path="/reset/:token" render={(props) => <Reset {...props} />} />
           <Redirect to="/home" />
         </Switch>
         <DemoFooter />

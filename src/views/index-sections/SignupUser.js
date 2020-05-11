@@ -1,23 +1,43 @@
-
-import React from "react";
+import React, { useState, useEffect } from "react";
+import Axios from "axios";
+import swal from 'sweetalert';
 import "assets/css/sign.css";
 
+import { Row, Col } from "reactstrap";
 
-import {
-  Button,
-  Card,
-  Form,
-  Input,
-  InputGroupAddon,
-  InputGroupText,
-  InputGroup,
-  Container,
-  Row,
-  Col,
-} from "reactstrap";
+function SignupUser(props) {
+  const [user, setUser] = useState({}); // user info
+  const [signup, setSignup] = useState(false); // to show aleart
 
+  //to add the input inside user
+  let onChangeInput1 = ({ target: { name, value } }) => {
+    setUser({ ...user, [name]: value });
+  };
 
-function SignupUser() {
+  // to add the user info to database
+  let onSubmit = (e) => {
+    e.preventDefault();
+    if (user.password == user.conPassword) {
+      Axios.post("http://localhost:4000/user/signup", user)
+        .then((res) => {
+          if (res.data.signup) {
+            props.history.push("/signin");
+          } else {
+            setSignup(true);
+            setTimeout(() => {
+              setSignup(false);
+            }, 4000);
+          }
+        })
+        .catch((err) => console.log(err));
+    } else {
+      swal({
+        title: "Passwords are not equals!",
+        icon: "warning",
+      });
+    }
+  };
+
   return (
     <div className="body1">
       <div id="wrapper">
@@ -27,34 +47,77 @@ function SignupUser() {
             <br />
             <h3>SIGN UP</h3>
             <br />
-            <form>
+            <form onSubmit={(e) => onSubmit(e)}>
               <Row>
-                  <Col>
-                <div>
-                  <label>First Name</label>
-                  <input type="text" class="text-input" />
-                </div>
+                <Col>
+                  <div>
+                    <label>First Name</label>
+                    <input
+                      name="firstName"
+                      type="text"
+                      class="text-input"
+                      onChange={(e) => onChangeInput1(e)}
+                    />
+                  </div>
                 </Col>
                 <Col>
-                <div>
-                  <label>Last Name</label>
-                  <input type="password" class="text-input" />
-                </div>
+                  <div>
+                    <label>Last Name</label>
+                    <input
+                      name="lastName"
+                      type="text"
+                      class="text-input"
+                      onChange={(e) => onChangeInput1(e)}
+                    />
+                  </div>
                 </Col>
               </Row>
               <div>
                 <label>Phone Number</label>
-                <input type="password" class="text-input" />
+                <input
+                  name="phoneNumber"
+                  type="text"
+                  class="text-input"
+                  onChange={(e) => onChangeInput1(e)}
+                />
               </div>
               <div>
                 <label>Email</label>
-                <input type="text" class="text-input" />
+                <input
+                  name="email"
+                  type="text"
+                  class="text-input"
+                  onChange={(e) => onChangeInput1(e)}
+                />
               </div>
-              <div>
-                <label>Password</label>
-                <input type="password" class="text-input" />
-              </div>
-              <button type="submit" class="primary-btn">
+              <Row>
+                <Col>
+                  <div>
+                    <label>Password</label>
+                    <input
+                      name="password"
+                      type="password"
+                      class="text-input"
+                      onChange={(e) => onChangeInput1(e)}
+                    />
+                  </div>
+                </Col>
+                <Col>
+                  <div>
+                    <label>Confirm Password</label>
+                    <input
+                      name="conPassword"
+                      type="password"
+                      class="text-input"
+                      onChange={(e) => onChangeInput1(e)}
+                    />
+                  </div>
+                </Col>
+              </Row>
+              <button
+                type="submit"
+                class="primary-btn"
+              >
                 Sign Up
               </button>
             </form>
@@ -67,7 +130,7 @@ function SignupUser() {
           <div id="showcase">
             <div class="showcase-content">
               <h1 class="showcase-text">
-              Let's explore <strong>together</strong>
+                Let's explore <strong>together</strong>
               </h1>
               <a href="/" class="secondary-btn">
                 Check out our trips!{" "}

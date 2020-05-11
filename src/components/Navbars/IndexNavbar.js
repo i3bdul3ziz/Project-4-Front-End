@@ -21,6 +21,7 @@ import {
 import logo from "../../assets/img/loogo.png"
 
 function IndexNavbar(props) {
+  console.log(props)
   const [navbarColor, setNavbarColor] = React.useState("navbar-transparent");
   const [navbarCollapse, setNavbarCollapse] = React.useState(false);
   const toggleNavbarCollapse = () => {
