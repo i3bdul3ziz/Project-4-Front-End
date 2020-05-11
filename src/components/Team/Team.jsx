@@ -86,7 +86,7 @@ function Team() {
            
            <img
             alt="..."
-            src={("https://files.slack.com/files-pri/T0351JZQ0-F012HPPMNTS/weiss_lou_heedy.png")}
+            src={("https://media-exp1.licdn.com/dms/image/C4D03AQHnxnpuJhjPXg/profile-displayphoto-shrink_200_200/0?e=1594857600&v=beta&t=BUvEApiUkqeL_RydS_eBJHyzNPY2QBDP_704Lveny9Y")}
             />
          </div>
          <CardBody>
