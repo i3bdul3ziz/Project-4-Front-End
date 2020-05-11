@@ -15,6 +15,10 @@ import SinglePersonTrip from "components/SinglePersonTrips/SinglePersonTrip";
 import MagicTrip from "components/MagicTrip/MagicTrip.jsx";
 import SectionNavbars from "../views/index-sections/SectionNavbars";
 import SingleTripShow from "assets/scss/paper-kit/ShowPages/SingleTripShow";
+import CreatePage from "components/TripForm/CreatePage";
+import EditPage from "components/TripForm/EditPage";
+import Forgot from "components/auth/Forgot";
+import Reset from "components/auth/Reset";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -70,6 +74,8 @@ function App() {
           <Route path="/magictrip" render={(props) => <MagicTrip {...props} />} />
           <Route path="/test" render={(props) => <SectionNavbars {...props} />} />
           <Route path="/Tripshow" render={(props) => <SingleTripShow {...props} />} />
+
+
           <Redirect to="/home" />
         </Switch>
         <DemoFooter />

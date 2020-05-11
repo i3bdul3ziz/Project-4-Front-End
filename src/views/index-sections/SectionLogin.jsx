@@ -1,19 +1,5 @@
-
 import React from "react";
 import "assets/css/sign.css";
-
-import {
-  Button,
-  Card,
-  Form,
-  Input,
-  InputGroupAddon,
-  InputGroupText,
-  InputGroup,
-  Container,
-  Row,
-  Col,
-} from "reactstrap";
 
 function SectionLogin() {
   return (
@@ -42,7 +28,7 @@ function SectionLogin() {
               </button>
             </form>
             <div class="links">
-              <a href="#">Forgot Password</a>
+              <a href="/forgotpass">Forgot Password</a>
             </div>
             <div class="or">
               <hr class="bar" />
@@ -58,7 +44,7 @@ function SectionLogin() {
           <div id="showcase" className="section-dark">
             <div class="showcase-content">
               <h1 class="showcase-text">
-              Let's explore <strong>together</strong>
+                Let's explore <strong>together</strong>
               </h1>
               <a href="/" class="secondary-btn">
                 Check our trips out!{" "}
