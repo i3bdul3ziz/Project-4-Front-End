@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {
   Button,
   Form,
@@ -15,24 +15,17 @@ import {
 import Datetime from "react-datetime";
 
 export default function CreateTripForm(props) {
-  // setState(props) {
-  //   super(props);
-  //   this.state = {
-  //     image: null
-  //   };
+    const [image, setImage] = useState('');
 
-  //   this.onImageChange = this.onImageChange.bind(this);
-  // }
+    // this.onImageChange = this.onImageChange.bind(this);
 
-  // onImageChange = event => {
-  //   if (event.target.files && event.target.files[0]) {
-  //     let img = event.target.files[0];
-  //     this.setState({
-  //       image: URL.createObjectURL(img)
-  //     });
-  //   }
-  // };
 
+  let onImageChange = event => {
+    if (event.target.files && event.target.files[0]) {
+      let img = event.target.files[0];
+      setImage({ ...image, image: URL.createObjectURL(img) });
+    }
+  };
   return (
     <div className="section landing-section">
       <Container>
@@ -107,7 +100,7 @@ export default function CreateTripForm(props) {
                 <Label for=""> Trip Images</Label>
                 <div className="mb-1">
                 <div className="">
-                <input type="file" id="file-input" name="ImageStyle"/>
+                <input type="file" id="file-input" name="tripImages" onChange={onImageChange}/>
                  </div>
                  </div>
               </FormGroup>
