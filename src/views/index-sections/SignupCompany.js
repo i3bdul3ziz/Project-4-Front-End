@@ -1,23 +1,43 @@
-
-import React from "react";
+import React, { useState, useEffect } from "react";
+import Axios from "axios";
+import swal from 'sweetalert';
 import "assets/css/sign.css";
 
-import {
-  Button,
-  Card,
-  Form,
-  Input,
-  InputGroupAddon,
-  InputGroupText,
-  InputGroup,
-  Container,
-  Row,
-  Col,
-} from "reactstrap";
-import UserTypes from "./UserTypes";
+import { Row, Col } from "reactstrap";
 
+function SignupCompany(props) {
+  const [company, setCompany] = useState({}); // user info
+  const [signup, setSignup] = useState(false); // to show aleart
 
-function SignupCompany() {
+  //to add the input inside user
+  let onChangeInput1 = ({ target: { name, value } }) => {
+    setCompany({ ...company, [name]: value });
+  };
+
+  // to add the user info to database
+  let onSubmit = (e) => {
+    e.preventDefault();
+    if (company.password == company.conPassword) {
+    Axios.post("http://localhost:4000/company/signup", company)
+      .then((res) => {
+        if (res.data.signup) {
+            props.history.push("/signin");
+        } else {
+          setSignup(true);
+          setTimeout(() => {
+            setSignup(false);
+          }, 4000);
+        }
+      })
+      .catch((err) => console.log(err));
+    } else {
+      swal({
+        title: "Passwords are not equals!",
+        icon: "warning",
+      });
+    }
+  };
+
   return (
     <div className="body1">
       <div id="wrapper">
@@ -27,33 +47,73 @@ function SignupCompany() {
             <br />
             <h4>SIGN UP FOR COMPANIES</h4>
             <br />
-            <form>
+            <form onSubmit={(e) => onSubmit(e)}>
               <Row>
-                  <Col>
-                <div>
-                  <label>Company Name</label>
-                  <input type="text" class="text-input" />
-                </div>
+                <Col>
+                  <div>
+                    <label>Company Name</label>
+                    <input
+                      name="companyName"
+                      type="text"
+                      class="text-input"
+                      onChange={(e) => onChangeInput1(e)}
+                    />
+                  </div>
                 </Col>
                 <Col>
-                <div>
-                  <label>License Number</label>
-                  <input type="password" class="text-input" />
-                </div>
+                  <div>
+                    <label>License Number</label>
+                    <input
+                      name="licensesNumber"
+                      type="text"
+                      class="text-input"
+                      onChange={(e) => onChangeInput1(e)}
+                    />
+                  </div>
                 </Col>
               </Row>
               <div>
                 <label>Company Phone Number</label>
-                <input type="password" class="text-input" />
+                <input
+                  name="companyPhoneNumber"
+                  type="text"
+                  class="text-input"
+                  onChange={(e) => onChangeInput1(e)}
+                />
               </div>
               <div>
                 <label>Company Email</label>
-                <input type="text" class="text-input" />
+                <input
+                  name="companyEmail"
+                  type="text"
+                  class="text-input"
+                  onChange={(e) => onChangeInput1(e)}
+                />
               </div>
-              <div>
-                <label>Password</label>
-                <input type="password" class="text-input" />
-              </div>
+              <Row>
+                <Col>
+                  <div>
+                    <label>Password</label>
+                    <input
+                      name="password"
+                      type="password"
+                      class="text-input"
+                      onChange={(e) => onChangeInput1(e)}
+                    />
+                  </div>
+                </Col>
+                <Col>
+                  <div>
+                    <label>Confirm Password</label>
+                    <input
+                      name="conPassword"
+                      type="password"
+                      class="text-input"
+                      onChange={(e) => onChangeInput1(e)}
+                    />
+                  </div>
+                </Col>
+              </Row>
               <button type="submit" class="primary-btn">
                 Sign Up
               </button>
