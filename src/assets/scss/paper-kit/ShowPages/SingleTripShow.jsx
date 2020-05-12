@@ -1,14 +1,6 @@
 import React, { useEffect, useState } from "react";
 import 'assets/css/ShowTrips.css'
 import {
-    Button,
-    Card,
-    Form,
-    Input,
-    InputGroupAddon,
-    InputGroupText,
-    InputGroup,
-    Container,
     Row,
     Col,
   } from "reactstrap";
@@ -22,7 +14,7 @@ function SingleTripShow() {
         <Row>
             <Col md={6}>
             <h1 className="title show-title-style" >Google Maps</h1>   
-            <div className="Map--pls" >
+            <div  >
             <GoogleApiWrapper />         
             </div>
             </Col>

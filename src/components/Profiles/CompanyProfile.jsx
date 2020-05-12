@@ -8,18 +8,18 @@ import {
   CardBody,
   CardTitle,
   CardText,
-  Button,
   Form,
   Input,
   FormGroup,
   Label,
 } from "reactstrap";
+import {Button} from "react-bootstrap"
 import "assets/css/main.css";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
 function CompanyProfile(props) {
-  const [company, setCompany] = useState({});
+  let [company, setCompany] = useState({});
 
   let getCompany = async (e) => {
     try {
@@ -27,33 +27,34 @@ function CompanyProfile(props) {
         `http://localhost:4000/company/${props.match.params.id}`
       );
       setCompany(data.data.company);
+      console.log(company)
     } catch (err) {
       console.log(err.response);
     }
   };
 
-  // let changeHandler = (e) => {
-  //   let temp = { ...company }; //copy state object
-  //   temp[e.target.name] = e.target.value;
-  //   setCompany(temp);
-  //   console.log(temp);
-  //   console.log(company);
-
-  // };
-
-  let changeHandler = ({ target: { name, value } }) => {
-    setCompany({ ...company, [name]: value });
+  let changeHandler = (e) => {
+    let temp = {...company}; //copy state object
+    temp[e.target.name] = e.target.value;
+    setCompany(temp);
+    console.log(temp);
     console.log(company);
+
   };
+
+  // let changeHandler = ({ target: { name, value } }) => {
+  //   setCompany({ ...company, [name]: value });
+  //   console.log(company);
+  // };
 
   let updateHandler = async () => {
     // console.log(company);
     try {
       let data = await axios.put(
-        `http://localhost:4000/company/${props.match.params.id}`,
+        `http://localhost:4000/company/${props.match.params.id}/edit`,
         company
       );
-      // console.log(data)
+      // console.log(data.data.company)
     } catch (err) {
       console.log(err.response);
     }
@@ -61,7 +62,7 @@ function CompanyProfile(props) {
 
   useEffect(() => {
     getCompany();
-  });
+  },[setCompany]);
 
   return (
     <div className="section landing-section">
@@ -77,9 +78,9 @@ function CompanyProfile(props) {
                     <Input
                       type="text"
                       id=""
-                      placeholder={company.companyName}
                       name="companyName"
-                      onChange={(e) => changeHandler(e)}
+                      value={company.companyName}
+                      onChange={changeHandler}
                     />
                   </FormGroup>
                 </Col>
@@ -104,9 +105,9 @@ function CompanyProfile(props) {
                     <Input
                       type="text"
                       id=""
-                      placeholder={company.companyEmail}
+                      value={company.companyEmail}
                       name="companyEmail"
-                      onChange={(e) => changeHandler(e)}
+                      onChange={changeHandler}
                     />
                   </FormGroup>
                 </Col>
@@ -132,16 +133,16 @@ function CompanyProfile(props) {
                 >
                   Save Changes
                 </Button>
-                <Button
+                {/* <Button
 
                   className="btn-fill"
                   color="danger"
                   size="lg"
-                  as={Link}
-                  to={`/companyprofile/${props.company._id}/createtrip`}
+                  // as={Link}
+                  // to={`/companyprofile/${props.company._id}/createtrip`}
                 >
                   Create Trips
-                </Button>
+                </Button> */}
               </Col>
             </Form>
           </Col>
@@ -156,11 +157,12 @@ function CompanyProfile(props) {
 
 {company.trips ? 
           company.trips.map((trip) => 
+
               <Col md={4}>
                 <Card style={{ width: "20rem" }}>
                   <CardImg
                     top
-                    src="https://images.unsplash.com/photo-1532339142463-fd0a8979791a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"
+                    src={trip.tripImages}
                     alt="..."
                   />
                   <CardBody>
@@ -176,7 +178,8 @@ function CompanyProfile(props) {
                     <Button
                       className="edit-btn-c"
                       as={Link}
-                      to={`edittrip/${company.trips._id}`}
+                      to={`/edittrip/${trip._id}`}
+                      replace                    
                     >
                       Edit
                     </Button>
@@ -184,7 +187,7 @@ function CompanyProfile(props) {
                   </CardBody>
                 </Card>
               </Col>
-          ) : alert("You don't have any trips")}
+          ) : <Col></Col>}
         </Row>
       </Container>
     </div>

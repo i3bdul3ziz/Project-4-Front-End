@@ -1,4 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {Link} from "react-router-dom"
 import {
   faHome,
   faMapMarkedAlt,
@@ -21,13 +22,17 @@ import {
 import logo from "../../assets/img/loogo.png";
 
 function IndexNavbar(props) {
+
+  let url = props.user ?`/userprofile/${props.user._id}`:`/companyprofile/${props.company && props.company._id}`
   const [navbarColor, setNavbarColor] = React.useState("navbar-transparent");
   const [navbarCollapse, setNavbarCollapse] = React.useState(false);
   const toggleNavbarCollapse = () => {
     setNavbarCollapse(!navbarCollapse);
     document.documentElement.classList.toggle("nav-open");
   };
+  console.log(props.user)
   React.useEffect(() => {
+    
     const updateNavbarColor = () => {
       if (
         document.documentElement.scrollTop > 49 ||
@@ -101,7 +106,7 @@ function IndexNavbar(props) {
                 <NavItem>
                   <NavLink
                     data-placement="bottom"
-                    href= {`/companyprofile/${props.company._id}`}
+                    href={url}
                     title="Your Profile"
                   >
                     <i>
