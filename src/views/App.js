@@ -23,7 +23,7 @@ import Forgot from "components/auth/Forgot";
 import Reset from "components/auth/Reset";
 import SigninTypes from "./index-sections/SigninTypes.js";
 import CompanySignin from "./index-sections/CompanySignin";
-import {decode} from "jsonwebtoken";
+import { decode } from "jsonwebtoken";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -48,9 +48,6 @@ function App() {
       let company = jwt_decode(token, "SECRET").company;
       setCompany(company);
       setIsLogin(true);
-      // console.log(company);
-      console.log(company._id);
-
     } else {
       setCompany(null);
       setIsLogin(false);
@@ -64,10 +61,12 @@ function App() {
   };
   document.documentElement.classList.remove("nav-open");
   React.useEffect(() => {
+    companySignin();
+    // userSignin();
+
     document.body.classList.add("index");
     return function cleanup() {
       document.body.classList.remove("index");
-      userSignin();
     };
   });
   return (
@@ -77,8 +76,8 @@ function App() {
         isLogin={isLogin}
         userSignin={userSignin}
         companySignin={companySignin}
-        user = {user}
-        company = {company}
+        user={user}
+        company={company}
       />
 
       <div className="main">
@@ -141,16 +140,19 @@ function App() {
             render={(props) => <UserProfile {...props} />}
           />
 
-                <Route
-                  path="/companyprofile/:id"
-                  render={(props) => <CompanyProfile {...props} />}
-                />
- 
+          <Route
+            path="/companyprofile/:id"
+            render={(props) => <CompanyProfile {...props} />}
+          />
+
           <Route
             path="/createtrip"
             render={(props) => <CreatePage {...props} />}
           />
-          <Route path="/edittrip/:id" render={(props) => <EditPage {...props} />} />
+          <Route
+            path="/edittrip/:id"
+            render={(props) => <EditPage {...props} />}
+          />
           <Route path="/forgotpass" render={(props) => <Forgot {...props} />} />
           <Route
             path="/reset/:token"

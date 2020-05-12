@@ -42,7 +42,11 @@ function CreateTripForm(props) {
 
   let onSubmit = (e) => {
     e.preventDefault();
-    Axios.post(`http://localhost:4000/trip/create`, trip)
+    Axios.post(`http://localhost:4000/trip/create`, trip, {
+      headers: {
+        token: localStorage.getItem("token"),
+      },
+    })
       .then((res) => {
         console.log(res);
       })
@@ -129,12 +133,11 @@ function CreateTripForm(props) {
                       className="date"
                       id="datetimepicker"
                       name="startDate"
+                      onChange={(e) => onChangeInput(e)}
                     >
                       <Datetime
                         timeFormat={false}
                         inputProps={{ placeholder: "Date Picker Here" }}
-                        name="startDate"
-                        onChange={(e) => onChangeTime(e)}
                       />
                       <InputGroupAddon addonType="append">
                         <InputGroupText>
