@@ -18,10 +18,9 @@ import {
   Nav,
   Container,
 } from "reactstrap";
-import logo from "../../assets/img/loogo.png"
+import logo from "../../assets/img/loogo.png";
 
 function IndexNavbar(props) {
-  console.log(props)
   const [navbarColor, setNavbarColor] = React.useState("navbar-transparent");
   const [navbarCollapse, setNavbarCollapse] = React.useState(false);
   const toggleNavbarCollapse = () => {
@@ -55,9 +54,8 @@ function IndexNavbar(props) {
             data-placement="bottom"
             href="/"
             title="Best Saudi Tourism Company"
-           
           >
-           <img width={150} hieght={100} src={logo}/>
+            <img width={150} hieght={100} src={logo} />
           </NavbarBrand>
           <button
             aria-expanded={navbarCollapse}
@@ -88,7 +86,7 @@ function IndexNavbar(props) {
             <NavItem>
               <NavLink
                 data-placement="bottom"
-                href="/trips"
+                href="/createtrip"
                 title="Explore Our Trips"
               >
                 <i>
@@ -103,11 +101,10 @@ function IndexNavbar(props) {
                 <NavItem>
                   <NavLink
                     data-placement="bottom"
-                    href="/profile"
+                    href= {`/companyprofile/${props.company._id}`}
                     title="Your Profile"
                   >
                     <i>
-                      {" "}
                       <FontAwesomeIcon size="lg" icon={faUserCircle} />{" "}
                     </i>
                     <p className="d-lg-none">PROFILE</p>
