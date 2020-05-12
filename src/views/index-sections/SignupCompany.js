@@ -21,7 +21,7 @@ function SignupCompany(props) {
     Axios.post("http://localhost:4000/company/signup", company)
       .then((res) => {
         if (res.data.signup) {
-            props.history.push("/signin");
+            props.history.push("/companysignin");
         } else {
           setSignup(true);
           setTimeout(() => {

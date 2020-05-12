@@ -12,20 +12,16 @@ import {
   Row,
   Col,
 } from "reactstrap";
-import Datetime from "react-datetime";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import Axios from "axios";
 import { Map, Marker, GoogleApiWrapper } from "google-maps-react";
 
 function CreateTripForm(props) {
-
-
+  const [startDate, setStartDate] = useState(new Date());
   const [image, setImage] = useState(null);
   const [trip, setTrip] = useState("");
-  const [location, setLocation] = useState({currentLocation: {
-    lat: 0.0,
-    lng: 0.0
-  }});
-
+  const [obj, setObj] = useState({ lat: 23.8859, lng: 45.0792 });
 
   const mapStyles = {
     margin: "0",
@@ -38,32 +34,41 @@ function CreateTripForm(props) {
   let onImageChange = (event) => {
     if (event.target.files && event.target.files[0]) {
       let img = event.target.files[0];
-      setImage({ ...image, image: URL.createObjectURL(img) });
+      setTrip({ ...trip, tripImages: URL.createObjectURL(img) });
     }
   };
 
-  // let onSubmit = (e) => {
-  //   e.preventDefault();
-  //   Axios.post(`http://localhost:4000/trip/create`, trip)
-  //     .then((res) => {
-  //       console.log(res);
-  //     })
-  //     .catch((err) => {
-  //       console.log("error");
-  //     });
-  // };
+  let onChangeTime = (value) => {
+    setTrip({ ...trip, startDate: value });
+
+  };
+
+  let onSubmit = (e) => {
+    e.preventDefault();
+    Axios.post(`http://localhost:4000/trip/create`, trip, {
+      headers: {
+        token: localStorage.getItem("token"),
+      },
+    })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log("error");
+      });
+  };
 
   let onChangeInput = ({ target: { name, value } }) => {
+    console.log(trip);
     setTrip({ ...trip, [name]: value });
   };
 
-  let getLatLng = (m, me,c) => {
-    
-    // setTrip({ ...trip, lat: lat });
-    console.log("m" + m);
-    console.log("me" + me);
-    console.log({"C" : c.latLng.lng()});
-    // console.log("lng: " + lng);
+  let getLatLng = (m, ma, c) => {
+    setObj({ lat: c.latLng.lat(), lng: c.latLng.lng() });
+
+    setTrip({ ...trip, lat: c.latLng.lat(), lng: c.latLng.lng() });
+    console.log(c.latLng.lng());
+    console.log(c.latLng.lat());
   };
 
   return (
@@ -80,15 +85,14 @@ function CreateTripForm(props) {
               zoom={8}
               style={mapStyles}
               onClick={getLatLng}
-              initialCenter={{ lat: 23.8859
-               , lng:  45.0792 }}
+              initialCenter={{ lat: 23.8859, lng: 45.0792 }}
             >
-              <Marker position={{ lat:  23.8859, lng: 45.0792 }} />
+              <Marker position={obj} />
             </Map>
           </Col>
           <Col className="ml-auto mr-auto" md="8">
             <h2 className="text-center">Create A New Trip</h2>
-            <Form className="contact-form" >
+            <Form className="contact-form">
               <div className="form-row">
                 <FormGroup className="col-md-6">
                   <Label for="inputState">Trip Style</Label>
@@ -98,6 +102,7 @@ function CreateTripForm(props) {
                     id="inputState"
                     onChange={(e) => onChangeInput(e)}
                   >
+                    <option>Choose trip style...</option>
                     <option>Family Trip</option>
                     <option>Friends Trip</option>
                     <option>Solo Trip</option>
@@ -111,6 +116,7 @@ function CreateTripForm(props) {
                     id="inputState"
                     onChange={(e) => onChangeInput(e)}
                   >
+                    <option>choose the number of people....</option>
                     <option>1</option>
                     <option>2</option>
                     <option>3</option>
@@ -130,14 +136,11 @@ function CreateTripForm(props) {
                       className="date"
                       id="datetimepicker"
                       name="startDate"
-                      onChange={(e) => onChangeInput(e)}
+                      onChange={(e) => onChangeTime(e)}
                     >
-                      <Datetime
-                        timeFormat={false}
-                        inputProps={{ placeholder: "Date Picker Here" }}
-                      />
+                      <DatePicker selected={startDate} onChange={(e) => onChangeTime(e)} />
                       <InputGroupAddon addonType="append">
-                        <InputGroupText onChange={(e) => onChangeInput(e)}>
+                        <InputGroupText>
                           <span className="glyphicon glyphicon-calendar">
                             <i aria-hidden={true} className="fa fa-calendar" />
                           </span>
@@ -155,6 +158,7 @@ function CreateTripForm(props) {
                     id=""
                     onChange={(e) => onChangeInput(e)}
                   >
+                    <option>Choose the number of days...</option>
                     <option>1 Day</option>
                     <option>2 Days</option>
                     <option>3 Days</option>
@@ -182,7 +186,7 @@ function CreateTripForm(props) {
                       type="file"
                       id="file-input"
                       name="tripImages"
-                      onChange={(e) => onChangeInput(e)}
+                      onChange={(e) => onImageChange(e)}
                     />
                   </div>
                 </div>
@@ -197,7 +201,7 @@ function CreateTripForm(props) {
                 />
               </FormGroup>
               <Col className="text-center">
-                <Button className="btn-fill" color="danger" size="lg">
+                <Button className="btn-fill" type="submit" color="danger" size="lg" onClick={(e) => onSubmit(e)}>
                   Create a new trip!
                 </Button>
               </Col>

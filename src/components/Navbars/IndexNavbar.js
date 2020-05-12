@@ -1,4 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {Link} from "react-router-dom"
 import {
   faHome,
   faMapMarkedAlt,
@@ -18,17 +19,20 @@ import {
   Nav,
   Container,
 } from "reactstrap";
-import logo from "../../assets/img/loogo.png"
+import logo from "../../assets/img/loogo.png";
 
 function IndexNavbar(props) {
-  console.log(props)
+
+  let url = props.user ?`/userprofile/${props.user._id}`:`/companyprofile/${props.company && props.company._id}`
   const [navbarColor, setNavbarColor] = React.useState("navbar-transparent");
   const [navbarCollapse, setNavbarCollapse] = React.useState(false);
   const toggleNavbarCollapse = () => {
     setNavbarCollapse(!navbarCollapse);
     document.documentElement.classList.toggle("nav-open");
   };
+  console.log(props.user)
   React.useEffect(() => {
+    
     const updateNavbarColor = () => {
       if (
         document.documentElement.scrollTop > 49 ||
@@ -55,9 +59,8 @@ function IndexNavbar(props) {
             data-placement="bottom"
             href="/"
             title="Best Saudi Tourism Company"
-           
           >
-           <img width={150} hieght={100} src={logo}/>
+            <img width={150} hieght={100} src={logo} />
           </NavbarBrand>
           <button
             aria-expanded={navbarCollapse}
@@ -88,7 +91,7 @@ function IndexNavbar(props) {
             <NavItem>
               <NavLink
                 data-placement="bottom"
-                href="/trips"
+                href="/createtrip"
                 title="Explore Our Trips"
               >
                 <i>
@@ -103,11 +106,10 @@ function IndexNavbar(props) {
                 <NavItem>
                   <NavLink
                     data-placement="bottom"
-                    href="/profile"
+                    href={url}
                     title="Your Profile"
                   >
                     <i>
-                      {" "}
                       <FontAwesomeIcon size="lg" icon={faUserCircle} />{" "}
                     </i>
                     <p className="d-lg-none">PROFILE</p>
