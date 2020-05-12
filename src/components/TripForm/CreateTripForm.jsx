@@ -42,26 +42,28 @@ function CreateTripForm(props) {
     }
   };
 
-  let onSubmit = (e) => {
-    e.preventDefault();
-    Axios.post(`http://localhost:4000/trip/create`, trip)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log("error");
-      });
-  };
+  // let onSubmit = (e) => {
+  //   e.preventDefault();
+  //   Axios.post(`http://localhost:4000/trip/create`, trip)
+  //     .then((res) => {
+  //       console.log(res);
+  //     })
+  //     .catch((err) => {
+  //       console.log("error");
+  //     });
+  // };
 
   let onChangeInput = ({ target: { name, value } }) => {
     setTrip({ ...trip, [name]: value });
   };
 
-  let getLatLng = (lat, lng) => {
+  let getLatLng = (m, me,c) => {
     
-    setTrip({ ...trip, lat: lat });
-    console.log("lat: " + lat);
-    console.log("lng: " + lng);
+    // setTrip({ ...trip, lat: lat });
+    console.log("m" + m);
+    console.log("me" + me);
+    console.log({"C" : c.latLng.lng()});
+    // console.log("lng: " + lng);
   };
 
   return (
@@ -77,7 +79,7 @@ function CreateTripForm(props) {
               google={props.google}
               zoom={8}
               style={mapStyles}
-              onClick={(e) => getLatLng(e)}
+              onClick={getLatLng}
               initialCenter={{ lat: 23.8859
                , lng:  45.0792 }}
             >
@@ -86,7 +88,7 @@ function CreateTripForm(props) {
           </Col>
           <Col className="ml-auto mr-auto" md="8">
             <h2 className="text-center">Create A New Trip</h2>
-            <Form className="contact-form" onSubmit={(e) => onSubmit(e)}>
+            <Form className="contact-form" >
               <div className="form-row">
                 <FormGroup className="col-md-6">
                   <Label for="inputState">Trip Style</Label>
