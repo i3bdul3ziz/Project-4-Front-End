@@ -174,8 +174,8 @@ function App() {
           />
           <Redirect to="/home" />
         </Switch>
-        <DemoFooter />
       </div>
+      <DemoFooter />
     </>
   );
 }

@@ -8,12 +8,12 @@ import {
   CardBody,
   CardTitle,
   CardText,
-  Button,
   Form,
   Input,
   FormGroup,
   Label,
 } from "reactstrap";
+import {Button} from "react-bootstrap"
 import "assets/css/main.css";
 import axios from "axios";
 import { Link } from "react-router-dom";
@@ -27,6 +27,7 @@ function CompanyProfile(props) {
         `http://localhost:4000/company/${props.match.params.id}`
       );
       setCompany(data.data.company);
+      console.log(company)
     } catch (err) {
       console.log(err.response);
     }
@@ -50,7 +51,7 @@ function CompanyProfile(props) {
     // console.log(company);
     try {
       let data = await axios.put(
-        `http://localhost:4000/company/${props.match.params.id}`,
+        `http://localhost:4000/company/${props.match.params.id}/edit`,
         company
       );
       // console.log(data.data.company)
@@ -161,7 +162,7 @@ function CompanyProfile(props) {
                 <Card style={{ width: "20rem" }}>
                   <CardImg
                     top
-                    src="https://images.unsplash.com/photo-1532339142463-fd0a8979791a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"
+                    src={trip.tripImages}
                     alt="..."
                   />
                   <CardBody>
@@ -177,7 +178,8 @@ function CompanyProfile(props) {
                     <Button
                       className="edit-btn-c"
                       as={Link}
-                      to={`edittrip/${company.trips._id}`}
+                      to={`/edittrip/${trip._id}`}
+                      replace                    
                     >
                       Edit
                     </Button>
