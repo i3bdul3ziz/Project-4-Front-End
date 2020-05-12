@@ -19,7 +19,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 
 function CompanyProfile(props) {
-  const [company, setCompany] = useState({});
+  let [company, setCompany] = useState({});
 
   let getCompany = async (e) => {
     try {
@@ -32,19 +32,19 @@ function CompanyProfile(props) {
     }
   };
 
-  // let changeHandler = (e) => {
-  //   let temp = { ...company }; //copy state object
-  //   temp[e.target.name] = e.target.value;
-  //   setCompany(temp);
-  //   console.log(temp);
-  //   console.log(company);
-
-  // };
-
-  let changeHandler = ({ target: { name, value } }) => {
-    setCompany({ ...company, [name]: value });
+  let changeHandler = (e) => {
+    let temp = {...company}; //copy state object
+    temp[e.target.name] = e.target.value;
+    setCompany(temp);
+    console.log(temp);
     console.log(company);
+
   };
+
+  // let changeHandler = ({ target: { name, value } }) => {
+  //   setCompany({ ...company, [name]: value });
+  //   console.log(company);
+  // };
 
   let updateHandler = async () => {
     // console.log(company);
@@ -53,7 +53,7 @@ function CompanyProfile(props) {
         `http://localhost:4000/company/${props.match.params.id}`,
         company
       );
-      // console.log(data)
+      // console.log(data.data.company)
     } catch (err) {
       console.log(err.response);
     }
@@ -61,7 +61,7 @@ function CompanyProfile(props) {
 
   useEffect(() => {
     getCompany();
-  });
+  },[setCompany]);
 
   return (
     <div className="section landing-section">
@@ -77,9 +77,9 @@ function CompanyProfile(props) {
                     <Input
                       type="text"
                       id=""
-                      placeholder={company.companyName}
                       name="companyName"
-                      onChange={(e) => changeHandler(e)}
+                      value={company.companyName}
+                      onChange={changeHandler}
                     />
                   </FormGroup>
                 </Col>
@@ -104,9 +104,9 @@ function CompanyProfile(props) {
                     <Input
                       type="text"
                       id=""
-                      placeholder={company.companyEmail}
+                      value={company.companyEmail}
                       name="companyEmail"
-                      onChange={(e) => changeHandler(e)}
+                      onChange={changeHandler}
                     />
                   </FormGroup>
                 </Col>
@@ -132,16 +132,16 @@ function CompanyProfile(props) {
                 >
                   Save Changes
                 </Button>
-                <Button
+                {/* <Button
 
                   className="btn-fill"
                   color="danger"
                   size="lg"
-                  as={Link}
-                  to={`/companyprofile/${props.company._id}/createtrip`}
+                  // as={Link}
+                  // to={`/companyprofile/${props.company._id}/createtrip`}
                 >
                   Create Trips
-                </Button>
+                </Button> */}
               </Col>
             </Form>
           </Col>
@@ -156,6 +156,7 @@ function CompanyProfile(props) {
 
 {company.trips ? 
           company.trips.map((trip) => 
+
               <Col md={4}>
                 <Card style={{ width: "20rem" }}>
                   <CardImg
@@ -184,7 +185,7 @@ function CompanyProfile(props) {
                   </CardBody>
                 </Card>
               </Col>
-          ) : alert("You don't have any trips")}
+          ) : <Col></Col>}
         </Row>
       </Container>
     </div>

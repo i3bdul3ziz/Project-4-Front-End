@@ -12,11 +12,13 @@ import {
   Row,
   Col,
 } from "reactstrap";
-import Datetime from "react-datetime";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import Axios from "axios";
 import { Map, Marker, GoogleApiWrapper } from "google-maps-react";
 
 function CreateTripForm(props) {
+  const [startDate, setStartDate] = useState(new Date());
   const [image, setImage] = useState(null);
   const [trip, setTrip] = useState("");
   const [obj, setObj] = useState({ lat: 23.8859, lng: 45.0792 });
@@ -37,7 +39,8 @@ function CreateTripForm(props) {
   };
 
   let onChangeTime = (value) => {
-    setTrip({ ...trip, startDate: value._d });
+    setTrip({ ...trip, startDate: value });
+
   };
 
   let onSubmit = (e) => {
@@ -89,7 +92,7 @@ function CreateTripForm(props) {
           </Col>
           <Col className="ml-auto mr-auto" md="8">
             <h2 className="text-center">Create A New Trip</h2>
-            <Form className="contact-form" onSubmit={(e) => onSubmit(e)}>
+            <Form className="contact-form">
               <div className="form-row">
                 <FormGroup className="col-md-6">
                   <Label for="inputState">Trip Style</Label>
@@ -133,12 +136,9 @@ function CreateTripForm(props) {
                       className="date"
                       id="datetimepicker"
                       name="startDate"
-                      onChange={(e) => onChangeInput(e)}
+                      onChange={(e) => onChangeTime(e)}
                     >
-                      <Datetime
-                        timeFormat={false}
-                        inputProps={{ placeholder: "Date Picker Here" }}
-                      />
+                      <DatePicker selected={startDate} onChange={(e) => onChangeTime(e)} />
                       <InputGroupAddon addonType="append">
                         <InputGroupText>
                           <span className="glyphicon glyphicon-calendar">
@@ -201,7 +201,7 @@ function CreateTripForm(props) {
                 />
               </FormGroup>
               <Col className="text-center">
-                <Button className="btn-fill" color="danger" size="lg">
+                <Button className="btn-fill" type="submit" color="danger" size="lg" onClick={(e) => onSubmit(e)}>
                   Create a new trip!
                 </Button>
               </Col>

@@ -59,16 +59,30 @@ function App() {
     setUser(null);
     setIsLogin(false);
   };
-  document.documentElement.classList.remove("nav-open");
-  React.useEffect(() => {
-    companySignin();
-    // userSignin();
 
+
+      function cleanup() {
+        document.body.classList.remove("index");
+      };
+  document.documentElement.classList.remove("nav-open");
+  
+  function effect(){
+    companySignin()
+    userSignin()
     document.body.classList.add("index");
-    return function cleanup() {
-      document.body.classList.remove("index");
-    };
-  });
+  }
+
+      useEffect(() => {
+        effect()
+        return () => {
+          // cleanup()
+        }
+      },[])
+
+  // useEffect(() => {
+  //   // // userSignin();
+
+  // });
   return (
     <>
       <IndexNavbar
@@ -142,12 +156,12 @@ function App() {
 
           <Route
             path="/companyprofile/:id"
-            render={(props) => <CompanyProfile {...props} />}
+            render={(props) => <CompanyProfile {...props} company={company}/>}
           />
 
           <Route
             path="/createtrip"
-            render={(props) => <CreatePage {...props} />}
+            render={(props) => <CreatePage {...props} company={company} />}
           />
           <Route
             path="/edittrip/:id"
