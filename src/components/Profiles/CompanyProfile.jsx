@@ -20,6 +20,7 @@ import { Link } from "react-router-dom";
 
 function CompanyProfile(props) {
   const [company, setCompany] = useState({});
+  const [message , setMessage] = useState(null)
 
   let getCompany = async (e) => {
     try {
@@ -58,6 +59,24 @@ function CompanyProfile(props) {
       console.log(err.response);
     }
   };
+
+  let deleteTrip = (id)=> {
+    let token = localStorage.token
+    if (token){
+ axios.delete(`/${id}/delete`, {
+     headers: {token}
+ })
+ .then(msg => console.log("deleted"))
+ .catch(err => {
+     setMessage(err.response.data.message)
+     setTimeout(() => {
+        setMessage(null)
+     },2000);
+    console.log(err.response)}
+ )
+    }
+    console.log(localStorage.token)
+ }
 
   useEffect(() => {
     getCompany();
@@ -180,7 +199,8 @@ function CompanyProfile(props) {
                     >
                       Edit
                     </Button>
-                    <Button className="delete-btn-c">Delete</Button>
+                    <Button className="delete-btn-c" onClick={()=> deleteTrip(trip._id)} >Delete</Button>
+
                   </CardBody>
                 </Card>
               </Col>
