@@ -4,7 +4,7 @@ import { Row, Container } from "reactstrap";
 
 function DemoFooter() {
   return (
-    <footer className="footer footer-black footer-white">
+    <footer id="footer">
       <Container>
         <Row>
           <div className="credits mx-auto">

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import ImageUploader from 'react-image-uploader'
 import {
   Button,
   Form,
@@ -32,10 +33,10 @@ function CreateTripForm(props) {
   // this.onImageChange = this.onImageChange.bind(this);
 
   let onImageChange = (event) => {
-    if (event.target.files && event.target.files[0]) {
-      let img = event.target.files[0];
-      setTrip({ ...trip, tripImages: URL.createObjectURL(img) });
-    }
+    console.log(event)
+
+      setTrip({ ...trip, tripImages: event });
+
   };
 
   let onChangeTime = (value) => {
@@ -70,6 +71,17 @@ function CreateTripForm(props) {
     console.log(c.latLng.lng());
     console.log(c.latLng.lat());
   };
+
+  let uploadImage = (file, done, progress) => {
+    console.log(file)
+    // console.log(  done)
+    // console.log("progress" + progress)
+    // do your upload logic here
+    let error = null
+    let uploadedImageURL = file
+    done(error, uploadedImageURL)
+      console.log(uploadImage)
+  }
 
   return (
     <div className="section landing-section">
@@ -181,14 +193,38 @@ function CreateTripForm(props) {
               <FormGroup>
                 <Label for=""> Trip Images</Label>
                 <div className="mb-1">
-                  <div className="">
+
+
+
+                <ImageUploader
+        onUpload={uploadImage}
+        onRender={(props, state) => {
+ 
+          // render customized child image state
+          if (props.image) {
+            return (
+              <div style={{backgroundImage: `url(${props.image})`}} >
+                <button onClick={props.onRequestRemove}>Remove</button>
+                {props.error && <div>An error occurred</div>}
+              </div>
+            )
+          }
+                    // render default child drag target
+                    return (
+                      <div>
+                        <button onClick={props.onUploadPrompt} onChange={onImageChange}>Upload</button>
+                      </div>
+                    )
+                  }}/>
+
+                  {/* <div className="">
                     <input
                       type="file"
                       id="file-input"
                       name="tripImages"
                       onChange={(e) => onImageChange(e)}
                     />
-                  </div>
+                  </div> */}
                 </div>
               </FormGroup>
               <FormGroup>
