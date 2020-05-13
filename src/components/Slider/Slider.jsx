@@ -50,7 +50,7 @@ const items = [
   }
 ];
 
-function Slider() {
+function Slider(props) {
   const [activeIndex, setActiveIndex] = React.useState(0);
   const [animating, setAnimating] = React.useState(false);
   const onExiting = () => {
@@ -97,7 +97,7 @@ function Slider() {
                         onExited={onExited}
                         key={item.src}
                       >
-                        <img src={item.src} alt={item.altText} />
+                        <img src={props.tripImage} alt={item.altText} />
                         <CarouselCaption
                           captionText={item.caption}
                           captionHeader=""

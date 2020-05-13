@@ -67,7 +67,9 @@ function CompanyProfile(props) {
  axios.delete(`http://localhost:4000/trip/${id}/delete`, {
      headers: {token}
  })
- .then(message => console.log("deleted"))
+ .then(message => {
+   props.history.push("/home"); // Must return to company profile
+   console.log("deleted")})
  .catch(err => {
      setMessage(err.response.data.message)
      setTimeout(() => {
@@ -191,7 +193,12 @@ function CompanyProfile(props) {
                     </CardText>
                     <p className="fontStyle"> {trip.duration}</p>
                     <p className="fontStyle">{company.companyName}</p>
-                    <Button className="details-btn-c">More Details</Button>
+                    <Button className="details-btn-c"                       
+                    as={Link}
+                      to={`/trip/${trip._id}`}
+                      replace   >
+                        More Details
+                        </Button>
                     <Button
                       className="edit-btn-c"
                       as={Link}
