@@ -36,6 +36,7 @@ function CreateTripForm(props) {
 
   let onSubmit = (e) => {
     e.preventDefault();
+    console.log(trip)
     Axios.post(`http://localhost:4000/trip/create`, trip, {
       headers: {
         token: localStorage.getItem("token"),
@@ -131,7 +132,7 @@ function CreateTripForm(props) {
           </Col>
           <Col className="ml-auto mr-auto" md="8">
             <h2 className="text-center">Create A New Trip</h2>
-            <Form className="contact-form">
+            <Form className="contact-form" onSubmit={(e) => onSubmit(e)}>
               <div className="form-row">
                 <FormGroup className="col-md-6">
                   <Label for="inputState">Trip Style</Label>
@@ -249,7 +250,7 @@ function CreateTripForm(props) {
                   type="submit"
                   color="danger"
                   size="lg"
-                  onClick={(e) => onSubmit(e)}
+                  
                 >
                   Create a new trip!
                 </Button>

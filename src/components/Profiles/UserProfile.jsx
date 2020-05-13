@@ -17,7 +17,7 @@ import {
   FormGroup,
   Label,
 } from "reactstrap";
-import {Button} from "react-bootstrap"
+
 import "assets/css/main.css";
 import axios from "axios";
 import { Link } from "react-router-dom";
@@ -153,7 +153,7 @@ function UserProfile(props) {
                       {trip.destination}
                     </CardText>
                     <p className="fontStyle"> {trip.duration}</p>
-                    <p className="fontStyle">{company.companyName}</p>
+                    {/* <p className="fontStyle">{company.companyName}</p> */}
                     <Button className="details-btn-c">More Details</Button>
                     <Button
                       className="edit-btn-c"
