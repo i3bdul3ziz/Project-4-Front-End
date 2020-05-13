@@ -19,7 +19,8 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 
 function CompanyProfile(props) {
-  let [company, setCompany] = useState({});
+  const [company, setCompany] = useState({});
+  const [message , setMessage] = useState(null);
 
   let getCompany = async (e) => {
     try {
@@ -59,6 +60,24 @@ function CompanyProfile(props) {
       console.log(err.response);
     }
   };
+
+  let deleteTrip = (id)=> {
+    let token = localStorage.token
+    if (token){
+ axios.delete(`http://localhost:4000/trip/${id}/delete`, {
+     headers: {token}
+ })
+ .then(message => console.log("deleted"))
+ .catch(err => {
+     setMessage(err.response.data.message)
+     setTimeout(() => {
+        setMessage(null)
+     },2000);
+    console.log(err.response)}
+ )
+    }
+    console.log(localStorage.token)
+ }
 
   useEffect(() => {
     getCompany();
@@ -149,13 +168,11 @@ function CompanyProfile(props) {
         </Row>
         <Row>
           <h2 style={{ margin: "70px auto 70px auto" }} className="title">
-            Booked Trips
+            Created Trips
           </h2>
         </Row>
         <Row>
-
-
-{company.trips ? 
+    {company.trips ? 
           company.trips.map((trip) => 
 
               <Col md={4}>
@@ -183,7 +200,14 @@ function CompanyProfile(props) {
                     >
                       Edit
                     </Button>
-                    <Button className="delete-btn-c">Delete</Button>
+
+                    <Button 
+                    className="delete-btn-c" 
+                    onClick={()=> deleteTrip(trip._id)} 
+                    >
+                      Delete
+                    </Button>
+
                   </CardBody>
                 </Card>
               </Col>
