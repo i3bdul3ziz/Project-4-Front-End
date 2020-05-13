@@ -8,7 +8,6 @@ import {
   CardBody,
   CardTitle,
   CardText,
-  Button,
   Form,
   Input,
   InputGroupAddon,
@@ -17,7 +16,7 @@ import {
   FormGroup,
   Label,
 } from "reactstrap";
-
+import {Button} from "react-bootstrap"
 import "assets/css/main.css";
 import axios from "axios";
 import { Link } from "react-router-dom";
@@ -29,15 +28,19 @@ function UserProfile(props) {
   let getUser = async (e) => {
     try {
       let data = await axios.get(
-        `http://localhost:4000/user/${props.match.params.id}`
+        `http://localhost:4000/user/${props.match.params.id}`, {
+          headers: {
+            token: localStorage.getItem("token"),
+          },
+        }
       );
       setUser(data.data.user);
-      // console.log(company)
+
     } catch (err) {
       console.log(err.response);
     }
   };
-
+  
   let changeHandler = (e) => {
     let temp = {...user}; //copy state object
     temp[e.target.name] = e.target.value;
@@ -47,18 +50,16 @@ function UserProfile(props) {
 
   };
 
-  // let changeHandler = ({ target: { name, value } }) => {
-  //   setCompany({ ...company, [name]: value });
-  //   console.log(company);
-  // };
-
   let updateHandler = async () => {
-    // console.log(company);
+    console.log(user);
+
     try {
       let data = await axios.put(
         `http://localhost:4000/user/${props.match.params.id}/edit`,
         user
       );
+
+=======
       // console.log(data.data.company)
     } catch (err) {
       console.log(err.response);
@@ -121,7 +122,7 @@ function UserProfile(props) {
                 </Col>
               </Row>
               <Col className="text-center">
-                <Button className="btn-fill" color="danger" size="lg">
+                <Button className="btn-fill" color="danger" size="lg" onClick={updateHandler}>
                   Save Changes
                 </Button>
               </Col>
@@ -134,8 +135,6 @@ function UserProfile(props) {
           </h2>
         </Row>
         <Row>
-
-
 { user.booked ? 
           user.booked.map((trip) => 
         <Col md={4}>
@@ -153,16 +152,15 @@ function UserProfile(props) {
                       {trip.destination}
                     </CardText>
                     <p className="fontStyle"> {trip.duration}</p>
-                    {/* <p className="fontStyle">{company.companyName}</p> */}
-                    <Button className="details-btn-c">More Details</Button>
-                    <Button
-                      className="edit-btn-c"
-                      as={Link}
-                      to={`/edittrip/${trip._id}`}
-                      replace                    
-                    >
-                      Edit
-                    </Button>
+
+                    <p className="fontStyle">{trip.user[0].companyName}</p>
+                    <Button className="details-btn-c"                       
+                    as={Link}
+                      to={`/trip/${trip._id}`}
+                      replace   >
+                        More Details
+                        </Button>
+
                     <Button className="delete-btn-c">Cancel</Button>
                   </CardBody>
                 </Card>
@@ -174,6 +172,5 @@ function UserProfile(props) {
   );
 }
 
-
-
 export default UserProfile;
+

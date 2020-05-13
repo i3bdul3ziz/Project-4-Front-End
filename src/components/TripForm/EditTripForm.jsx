@@ -1,6 +1,6 @@
+
 import React, { useState } from "react";
 import { storage } from "../../firebase/firebase";
-
 import {
   Button,
   Form,
@@ -24,29 +24,8 @@ function EditTripForm(props) {
   const [trip, setTrip] = useState("");
   const [obj, setObj] = useState({ lat: 23.8859, lng: 45.0792 });
 
-  const mapStyles = {
-    margin: "0",
-    width: "70%",
-    height: "70%",
-  };
-
   let onChangeTime = (value) => {
     setTrip({ ...trip, startDate: value });
-  };
-
-  let onSubmit = (e) => {
-    e.preventDefault();
-    Axios.post(`http://localhost:4000/trip/create`, trip, {
-      headers: {
-        token: localStorage.getItem("token"),
-      },
-    })
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log("error");
-      });
   };
 
   let onChangeInput = ({ target: { name, value } }) => {
@@ -54,13 +33,21 @@ function EditTripForm(props) {
     setTrip({ ...trip, [name]: value });
   };
 
-  let getLatLng = (m, ma, c) => {
-    setObj({ lat: c.latLng.lat(), lng: c.latLng.lng() });
 
-    setTrip({ ...trip, lat: c.latLng.lat(), lng: c.latLng.lng() });
-    console.log(c.latLng.lng());
-    console.log(c.latLng.lat());
+  let updateHandler = async () => {
+    // console.log(company);
+    try {
+      let data = await axios.put(
+        `http://localhost:4000/trip/${props.match.params.id}/edit`,
+        trip
+      );
+    } catch (err) {
+      console.log(err.response);
+    }
   };
+
+  useEffect(() => {});
+
 
   // Images
 
@@ -110,6 +97,7 @@ function EditTripForm(props) {
     );
   };
 
+
   return (
     <div className="section landing-section">
       <Container>
@@ -130,7 +118,9 @@ function EditTripForm(props) {
             </Map>
           </Col>
           <Col className="ml-auto mr-auto" md="8">
-            <h2 className="text-center">Edit The Trip</h2>
+
+            <h2 className="text-center">Edit Trip</h2>
+
             <Form className="contact-form">
               <div className="form-row">
                 <FormGroup className="col-md-6">
@@ -170,7 +160,7 @@ function EditTripForm(props) {
               <div className="form-row">
                 <Col sm="6">
                   <FormGroup>
-                    <Label for="inputState">Start Date</Label>
+                    <Label for="inputState">Start Date : {trip.startDate}</Label>
                     <InputGroup
                       className="date"
                       id="datetimepicker"
@@ -216,11 +206,10 @@ function EditTripForm(props) {
                   type="text"
                   id=""
                   name="destination"
-                  placeholder="Alhada Mountins, Taif, Saudi Arabia"
                   onChange={(e) => onChangeInput(e)}
                 />
               </FormGroup>
-              <FormGroup>
+              {/* <FormGroup>
                 <Label for=""> Trip Images</Label>
                 <div className="mb-1">
                   {/* Image */}
@@ -233,7 +222,7 @@ function EditTripForm(props) {
                     <button>upload to firebase</button>
                   </form>
                 </div>
-              </FormGroup>
+              </FormGroup> */}
               <FormGroup>
                 <Label for="">Trip Desicription</Label>
                 <Input
@@ -244,14 +233,10 @@ function EditTripForm(props) {
                 />
               </FormGroup>
               <Col className="text-center">
-                <Button
-                  className="btn-fill"
-                  type="submit"
-                  color="danger"
-                  size="lg"
-                  onClick={(e) => onSubmit(e)}
-                >
-                  Create a new trip!
+
+                <Button className="btn-fill" color="danger" size="lg" onClick={updateHandler}>
+                  Edit the trip!
+
                 </Button>
               </Col>
             </Form>
