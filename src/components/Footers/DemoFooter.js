@@ -10,7 +10,7 @@ function DemoFooter() {
           <div className="credits mx-auto">
             <span className="copyright">
               © {new Date().getFullYear()}, made with{" "}
-              <i className="fa fa-heart heart" /> by Plenty of 20s
+              <i className="fa fa-heart heart" /> in Saudi
             </span>
           </div>
         </Row>

@@ -8,22 +8,6 @@ body, html{
     padding-bottom: 70px !important;
 }
 
-.fixed-top{
-    position: relative !important;
-    top: 0;
-    right: 0;
-    left: 0;
-    z-index: 1030;
-}
-
-nav div div ul li a{
-    color: gray !important;
-}
-
-nav div div ul li a:hover{
-    color: #FE6845 !important;
-}
-
 #footer{
     background-color: #fff;
     position: relative;
