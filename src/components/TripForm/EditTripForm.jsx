@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { storage } from "../../firebase/firebase";
+
 import {
   Button,
   Form,
@@ -12,27 +14,33 @@ import {
   Row,
   Col,
 } from "reactstrap";
-import Datetime from "react-datetime";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import Axios from "axios";
+import { Map, Marker, GoogleApiWrapper } from "google-maps-react";
 
-export default function EditTripForm() {
-  const [image, setImage] = useState(null);
+function EditTripForm(props) {
+  const [startDate, setStartDate] = useState(new Date());
   const [trip, setTrip] = useState("");
+  const [obj, setObj] = useState({ lat: 23.8859, lng: 45.0792 });
 
-  let onImageChange = (event) => {
-    if (event.target.files && event.target.files[0]) {
-      let img = event.target.files[0];
-      setTrip({ ...trip, tripImages: URL.createObjectURL(img) });
-    }
+  const mapStyles = {
+    margin: "0",
+    width: "70%",
+    height: "70%",
   };
 
   let onChangeTime = (value) => {
-    setTrip({ ...trip, startDate: value._d });
+    setTrip({ ...trip, startDate: value });
   };
 
   let onSubmit = (e) => {
     e.preventDefault();
-    Axios.post(`http://localhost:4000/trip/edit`, trip)
+    Axios.post(`http://localhost:4000/trip/create`, trip, {
+      headers: {
+        token: localStorage.getItem("token"),
+      },
+    })
       .then((res) => {
         console.log(res);
       })
@@ -46,13 +54,84 @@ export default function EditTripForm() {
     setTrip({ ...trip, [name]: value });
   };
 
+  let getLatLng = (m, ma, c) => {
+    setObj({ lat: c.latLng.lat(), lng: c.latLng.lng() });
+
+    setTrip({ ...trip, lat: c.latLng.lat(), lng: c.latLng.lng() });
+    console.log(c.latLng.lng());
+    console.log(c.latLng.lat());
+  };
+
+  // Images
+
+  const allImputs = { imgUrl: "" };
+  const [imageAsFile, setImageAsFile] = useState("");
+  const [imageAsUrl, setImageAsUrl] = useState(allImputs);
+
+  console.log(imageAsFile);
+  const handleImageAsFile = (e) => {
+    const tripImages = e.target.files[0];
+    setImageAsFile((imageFile) => tripImages);
+  };
+
+  const handleFireBaseUpload = (e) => {
+    e.preventDefault();
+    console.log("start of upload");
+    // async magic goes here...
+    if (imageAsFile === "") {
+      console.error(`not an image, the image file is a ${typeof imageAsFile}`);
+    }
+    const uploadTask = storage
+      .ref(`/images/${imageAsFile.name}`)
+      .put(imageAsFile);
+    //initiates the firebase side uploading
+    uploadTask.on(
+      "state_changed",
+      (snapShot) => {
+        //takes a snap shot of the process as it is happening
+        console.log(snapShot);
+      },
+      (err) => {
+        //catches the errors
+        console.log(err);
+      },
+      () => {
+        // gets the functions from storage refences the image storage in firebase by the children
+        // gets the download url then sets the image from firebase as the value for the imgUrl key:
+        storage
+          .ref("images")
+          .child(imageAsFile.name)
+          .getDownloadURL()
+          .then((fireBaseUrl) => {
+            setImageAsUrl({ tripImages: fireBaseUrl });
+            setTrip({ ...trip, tripImages: fireBaseUrl });
+          });
+      }
+    );
+  };
+
   return (
     <div className="section landing-section">
       <Container>
         <Row>
+          <Col className="ml-auto mr-auto" md="4">
+            <br /> <br />
+            <br />
+            <br />
+            <br />
+            <Map
+              google={props.google}
+              zoom={8}
+              style={mapStyles}
+              onClick={getLatLng}
+              initialCenter={{ lat: 23.8859, lng: 45.0792 }}
+            >
+              <Marker position={obj} />
+            </Map>
+          </Col>
           <Col className="ml-auto mr-auto" md="8">
-            <h2 className="text-center">Create A New Trip</h2>
-            <Form className="contact-form" onSubmit={(e) => onSubmit(e)}>
+            <h2 className="text-center">Edit The Trip</h2>
+            <Form className="contact-form">
               <div className="form-row">
                 <FormGroup className="col-md-6">
                   <Label for="inputState">Trip Style</Label>
@@ -96,11 +175,10 @@ export default function EditTripForm() {
                       className="date"
                       id="datetimepicker"
                       name="startDate"
+                      onChange={(e) => onChangeTime(e)}
                     >
-                      <Datetime
-                        timeFormat={false}
-                        inputProps={{ placeholder: "Date Picker Here" }}
-                        name="startDate"
+                      <DatePicker
+                        selected={startDate}
                         onChange={(e) => onChangeTime(e)}
                       />
                       <InputGroupAddon addonType="append">
@@ -145,14 +223,15 @@ export default function EditTripForm() {
               <FormGroup>
                 <Label for=""> Trip Images</Label>
                 <div className="mb-1">
-                  <div className="">
+                  {/* Image */}
+                  <form onSubmit={handleFireBaseUpload}>
                     <input
                       type="file"
-                      id="file-input"
                       name="tripImages"
-                      onChange={(e) => onImageChange(e)}
+                      onChange={handleImageAsFile}
                     />
-                  </div>
+                    <button>upload to firebase</button>
+                  </form>
                 </div>
               </FormGroup>
               <FormGroup>
@@ -165,8 +244,14 @@ export default function EditTripForm() {
                 />
               </FormGroup>
               <Col className="text-center">
-                <Button className="btn-fill" color="danger" size="lg">
-                  Edit the trip!
+                <Button
+                  className="btn-fill"
+                  type="submit"
+                  color="danger"
+                  size="lg"
+                  onClick={(e) => onSubmit(e)}
+                >
+                  Create a new trip!
                 </Button>
               </Col>
             </Form>
@@ -176,3 +261,4 @@ export default function EditTripForm() {
     </div>
   );
 }
+export default EditTripForm;
