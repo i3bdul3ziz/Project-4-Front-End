@@ -6,6 +6,7 @@ import { faBuilding, faHiking } from "@fortawesome/free-solid-svg-icons";
 function SigninTypes() {
   return (
     <>
+    <div className="fullHeight">
       <a href="/usersignin" class="split left ">
         <div className="centered">
           <FontAwesomeIcon size="7x" icon={faHiking} />
@@ -18,6 +19,7 @@ function SigninTypes() {
           <h4>Sign In As A Company</h4>
         </div>
       </a>
+    </div>
     </>
   );
 }
