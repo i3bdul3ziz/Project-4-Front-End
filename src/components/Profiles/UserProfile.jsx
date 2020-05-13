@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Card,
   Container,
@@ -17,9 +17,57 @@ import {
   FormGroup,
   Label,
 } from "reactstrap";
+import {Button} from "react-bootstrap"
 import "assets/css/main.css";
+import axios from "axios";
+import { Link } from "react-router-dom";
 
-function UserProfile() {
+
+function UserProfile(props) {
+  let [user, setUser] = useState({});
+
+  let getUser = async (e) => {
+    try {
+      let data = await axios.get(
+        `http://localhost:4000/user/${props.match.params.id}`
+      );
+      setUser(data.data.user);
+      // console.log(company)
+    } catch (err) {
+      console.log(err.response);
+    }
+  };
+
+  let changeHandler = (e) => {
+    let temp = {...user}; //copy state object
+    temp[e.target.name] = e.target.value;
+    setUser(temp);
+    // console.log(temp);
+    // console.log(company);
+
+  };
+
+  // let changeHandler = ({ target: { name, value } }) => {
+  //   setCompany({ ...company, [name]: value });
+  //   console.log(company);
+  // };
+
+  let updateHandler = async () => {
+    // console.log(company);
+    try {
+      let data = await axios.put(
+        `http://localhost:4000/user/${props.match.params.id}/edit`,
+        user
+      );
+      // console.log(data.data.company)
+    } catch (err) {
+      console.log(err.response);
+    }
+  };
+
+  useEffect(() => {
+    getUser();
+  },[setUser]);
   return (
     <div className="section landing-section">
       <Container>
@@ -31,28 +79,44 @@ function UserProfile() {
                 <Col md={6}>
                   <FormGroup>
                     <Label for="">First Name</Label>
-                    <Input type="text" id="" placeholder="" />
+                    <Input type="text"
+                        id=""
+                        value={user.firstName}
+                        name="firstName"
+                        onChange={changeHandler}
+  />
                   </FormGroup>
                 </Col>
                 <Col md={6}>
                   <FormGroup>
                     <Label for="">Last Name</Label>
-                    <Input type="text" id="" placeholder="" />
+                    <Input type="text"                    
+                        id=""
+                        value={user.lastName}
+                        name="lastName"
+                        onChange={changeHandler} />
                   </FormGroup>
                 </Col>
               </Row>
-
               <Row>
                 <Col md={6}>
                   <FormGroup>
                     <Label for="">Email</Label>
-                    <Input type="text" id="" placeholder="" />
+                    <Input type="text"
+                      id=""
+                      value={user.email}
+                      name="email"
+                      onChange={changeHandler} />
                   </FormGroup>
                 </Col>
                 <Col md={6}>
                   <FormGroup>
-                    <Label for="">Phone Number</Label>
-                    <Input type="text" id="" placeholder="" />
+                    <Label for="">Phone Number</Label> 
+                    <Input disabled
+                            type="text"
+                            id=""
+                            name="phoneNumber"
+                            value={user.phoneNumber} />
                   </FormGroup>
                 </Col>
               </Row>
@@ -70,29 +134,46 @@ function UserProfile() {
           </h2>
         </Row>
         <Row>
-          <Col md={4}>
-            <Card style={{ width: "20rem" }}>
-              <CardImg
-                top
-                src="https://images.unsplash.com/photo-1532339142463-fd0a8979791a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"
-                alt="..."
-              />
-              <CardBody>
-                <CardTitle className="fontStyle cardTitleStyle">Taif</CardTitle>
-                <CardText className="fontStyle cardTextStyle">
-                  Alhada Mountain
-                </CardText>
-                <p className="fontStyle">3 Days</p>
-                <p className="fontStyle">Company Name</p>
-                <Button className="details-btn-u">More Details</Button>
-                <Button className="cancel-btn-u">Cancel Trip</Button>
-              </CardBody>
-            </Card>
-          </Col>
+
+
+{ user.booked ? 
+          user.booked.map((trip) => 
+        <Col md={4}>
+                <Card style={{ width: "20rem" }}>
+                  <CardImg
+                    top
+                    src={trip.tripImages}
+                    alt="..."
+                  />
+                  <CardBody>
+                    <CardTitle className="fontStyle cardTitleStyle">
+                      {trip.tripStyle}
+                    </CardTitle>
+                    <CardText className="fontStyle cardTextStyle">
+                      {trip.destination}
+                    </CardText>
+                    <p className="fontStyle"> {trip.duration}</p>
+                    <p className="fontStyle">{company.companyName}</p>
+                    <Button className="details-btn-c">More Details</Button>
+                    <Button
+                      className="edit-btn-c"
+                      as={Link}
+                      to={`/edittrip/${trip._id}`}
+                      replace                    
+                    >
+                      Edit
+                    </Button>
+                    <Button className="delete-btn-c">Cancel</Button>
+                  </CardBody>
+                </Card>
+              </Col>
+              ) : <Col></Col>}
         </Row>
       </Container>
     </div>
   );
 }
+
+
 
 export default UserProfile;
