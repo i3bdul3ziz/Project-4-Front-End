@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   Form,
@@ -13,46 +13,51 @@ import {
   Col,
 } from "reactstrap";
 import Datetime from "react-datetime";
-import Axios from "axios";
+import axios from "axios";
 
-export default function EditTripForm() {
+export default function EditTripForm(props) {
   const [image, setImage] = useState(null);
   const [trip, setTrip] = useState("");
 
-  let onImageChange = (event) => {
-    if (event.target.files && event.target.files[0]) {
-      let img = event.target.files[0];
-      setTrip({ ...trip, tripImages: URL.createObjectURL(img) });
-    }
-  };
+  // let onImageChange = (event) => {
+  //   if (event.target.files && event.target.files[0]) {
+  //     let img = event.target.files[0];
+  //     setTrip({ ...trip, tripImages: URL.createObjectURL(img) });
+  //   }
+  // };
 
   let onChangeTime = (value) => {
-    setTrip({ ...trip, startDate: value._d });
+    setTrip({ ...trip, startDate: value });
   };
 
-  let onSubmit = (e) => {
-    e.preventDefault();
-    Axios.post(`http://localhost:4000/trip/edit`, trip)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log("error");
-      });
-  };
 
   let onChangeInput = ({ target: { name, value } }) => {
     console.log(trip);
     setTrip({ ...trip, [name]: value });
   };
 
+  let updateHandler = async () => {
+    // console.log(company);
+    try {
+      let data = await axios.put(
+        `http://localhost:4000/trip/${props.match.params.id}/edit`,
+        trip
+      );
+    } catch (err) {
+      console.log(err.response);
+    }
+  };
+
+  useEffect(() => {});
+
+
   return (
     <div className="section landing-section">
       <Container>
         <Row>
           <Col className="ml-auto mr-auto" md="8">
-            <h2 className="text-center">Create A New Trip</h2>
-            <Form className="contact-form" onSubmit={(e) => onSubmit(e)}>
+            <h2 className="text-center">Edit Trip</h2>
+            <Form className="contact-form">
               <div className="form-row">
                 <FormGroup className="col-md-6">
                   <Label for="inputState">Trip Style</Label>
@@ -91,7 +96,7 @@ export default function EditTripForm() {
               <div className="form-row">
                 <Col sm="6">
                   <FormGroup>
-                    <Label for="inputState">Start Date</Label>
+                    <Label for="inputState">Start Date : {trip.startDate}</Label>
                     <InputGroup
                       className="date"
                       id="datetimepicker"
@@ -138,11 +143,10 @@ export default function EditTripForm() {
                   type="text"
                   id=""
                   name="destination"
-                  placeholder="Alhada Mountins, Taif, Saudi Arabia"
                   onChange={(e) => onChangeInput(e)}
                 />
               </FormGroup>
-              <FormGroup>
+              {/* <FormGroup>
                 <Label for=""> Trip Images</Label>
                 <div className="mb-1">
                   <div className="">
@@ -154,7 +158,7 @@ export default function EditTripForm() {
                     />
                   </div>
                 </div>
-              </FormGroup>
+              </FormGroup> */}
               <FormGroup>
                 <Label for="">Trip Desicription</Label>
                 <Input
@@ -165,7 +169,7 @@ export default function EditTripForm() {
                 />
               </FormGroup>
               <Col className="text-center">
-                <Button className="btn-fill" color="danger" size="lg">
+                <Button className="btn-fill" color="danger" size="lg" onClick={updateHandler}>
                   Edit the trip!
                 </Button>
               </Col>

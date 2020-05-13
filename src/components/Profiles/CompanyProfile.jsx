@@ -174,7 +174,12 @@ function CompanyProfile(props) {
                     </CardText>
                     <p className="fontStyle"> {trip.duration}</p>
                     <p className="fontStyle">{company.companyName}</p>
-                    <Button className="details-btn-c">More Details</Button>
+                    <Button className="details-btn-c"                       
+                    as={Link}
+                      to={`/trip/${trip._id}`}
+                      replace   >
+                        More Details
+                        </Button>
                     <Button
                       className="edit-btn-c"
                       as={Link}

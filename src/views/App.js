@@ -146,12 +146,12 @@ function App() {
             render={(props) => <SectionNavbars {...props} />}
           />
           <Route
-            path="/Tripshow"
+            path="/trips/:id"
             render={(props) => <SingleTripShow {...props} />}
           />
           <Route
-            path="/userprofile"
-            render={(props) => <UserProfile {...props} />}
+            path="/userprofile/:id"
+            render={(props) => <UserProfile {...props} user={user}/>}
           />
 
           <Route
