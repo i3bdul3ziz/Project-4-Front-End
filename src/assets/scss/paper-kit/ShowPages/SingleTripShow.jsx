@@ -13,7 +13,7 @@ function SingleTripShow(props) {
     const [trip, setTrip] = useState({});
     const [latV, setLatV] = useState(parseFloat(23.8859));
     const [lngV, setLngV] = useState(parseFloat(45.0792));
-    const [company, setCompany] = useState([])
+    const [company, setCompany] = useState({})
 
     let getOneTrip = () => {
         Axios.get(`http://localhost:4000/trip/${props.match.params.id}`, {
@@ -24,8 +24,8 @@ function SingleTripShow(props) {
           .then((res) => {
             setTrip(res.data.trip);
             setCompany(res.data.trip.user[0])
+            console.log(res.data.trip)
             if (res.data.trip.lat != null && res.data.trip.lng != null) {
-              // console.log("!=")
               setLatV(parseFloat(res.data.trip.lat));
               setLngV(parseFloat(res.data.trip.lng));
             }
@@ -34,7 +34,7 @@ function SingleTripShow(props) {
       };
 
       let bookTrip = () => {
-        Axios.put(`http://localhost:4000/trip/${props.match.params.id}/book`, {
+        Axios.put(`http://localhost:4000/trip/${props.match.params.id}/book`, {}, {
           headers: {
             token: localStorage.getItem("token"),
           },
@@ -42,15 +42,14 @@ function SingleTripShow(props) {
           .then((res) => {
             console.log(res)
           })
-          .catch((err) => console.log(err));
+          .catch((err) => console.log(err.response));
       };
 
       const mapStyles = {
         margin: "0",
         width: "70%",
         height: "70%",
-      };
-
+      }
 
       useEffect(() => {
         getOneTrip();
@@ -91,7 +90,7 @@ function SingleTripShow(props) {
                     <p>{trip.numberOfPeople}</p>
                 </Row>
                 <Row>
-                    {/* <p>{company.companyName}</p> */}
+                    <p>{company.companyName}</p>
                 </Row>
                 <Row>
                 <Button 
