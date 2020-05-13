@@ -64,6 +64,21 @@ function UserProfile(props) {
     }
   };
 
+
+  let cancelTrip = (id)=> {
+    console.log(id)
+    axios.put(`http://localhost:4000/trip/${id}/cancel`, {}, {
+      headers: {
+        token: localStorage.getItem("token"),
+      },
+    })
+    .then((res) => {
+     console.log(res)
+   })
+   .catch((err) => console.log(err.response));
+ }
+
+
   useEffect(() => {
     getUser();
   },[setUser]);
@@ -151,14 +166,16 @@ function UserProfile(props) {
                     </CardText>
                     <p className="fontStyle"> {trip.duration}</p>
 
-                    <p className="fontStyle">{trip.user[0].companyName}</p>
+                    {/* <p className="fontStyle">{trip.user[0].companyName}</p> */}
                     <Button className="details-btn-c"                       
                     as={Link}
                       to={`/trip/${trip._id}`}
                       replace   >
                         More Details
                         </Button>
-                    <Button className="delete-btn-c">Cancel</Button>
+                    <Button className="delete-btn-c"
+                      onClick={()=> cancelTrip(trip._id)}
+                      >Cancel</Button>
                   </CardBody>
                 </Card>
               </Col>
