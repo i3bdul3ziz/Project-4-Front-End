@@ -24,6 +24,7 @@ import { Link } from "react-router-dom";
 
 function UserProfile(props) {
   let [user, setUser] = useState({});
+
   let getUser = async (e) => {
     try {
       let data = await axios.get(
@@ -39,29 +40,35 @@ function UserProfile(props) {
       console.log(err.response);
     }
   };
+  
   let changeHandler = (e) => {
     let temp = {...user}; //copy state object
     temp[e.target.name] = e.target.value;
     setUser(temp);
     // console.log(temp);
     // console.log(company);
+
   };
 
   let updateHandler = async () => {
     console.log(user);
+
     try {
       let data = await axios.put(
         `http://localhost:4000/user/${props.match.params.id}/edit`,
         user
       );
+
+=======
+      // console.log(data.data.company)
     } catch (err) {
       console.log(err.response);
     }
   };
+
   useEffect(() => {
     getUser();
   },[setUser]);
-
   return (
     <div className="section landing-section">
       <Container>
@@ -145,6 +152,7 @@ function UserProfile(props) {
                       {trip.destination}
                     </CardText>
                     <p className="fontStyle"> {trip.duration}</p>
+
                     <p className="fontStyle">{trip.user[0].companyName}</p>
                     <Button className="details-btn-c"                       
                     as={Link}
@@ -152,6 +160,7 @@ function UserProfile(props) {
                       replace   >
                         More Details
                         </Button>
+
                     <Button className="delete-btn-c">Cancel</Button>
                   </CardBody>
                 </Card>
@@ -162,4 +171,6 @@ function UserProfile(props) {
     </div>
   );
 }
+
 export default UserProfile;
+

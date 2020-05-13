@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import ImageUploader from 'react-image-uploader'
+import { storage } from "../../firebase/firebase";
+
 import {
   Button,
   Form,
@@ -20,7 +21,6 @@ import { Map, Marker, GoogleApiWrapper } from "google-maps-react";
 
 function CreateTripForm(props) {
   const [startDate, setStartDate] = useState(new Date());
-  const [image, setImage] = useState(null);
   const [trip, setTrip] = useState("");
   const [obj, setObj] = useState({ lat: 23.8859, lng: 45.0792 });
 
@@ -30,22 +30,13 @@ function CreateTripForm(props) {
     height: "70%",
   };
 
-  // this.onImageChange = this.onImageChange.bind(this);
-
-  let onImageChange = (event) => {
-    console.log(event)
-
-      setTrip({ ...trip, tripImages: event });
-
-  };
-
   let onChangeTime = (value) => {
     setTrip({ ...trip, startDate: value });
-
   };
 
   let onSubmit = (e) => {
     e.preventDefault();
+    console.log(trip)
     Axios.post(`http://localhost:4000/trip/create`, trip, {
       headers: {
         token: localStorage.getItem("token"),
@@ -72,16 +63,53 @@ function CreateTripForm(props) {
     console.log(c.latLng.lat());
   };
 
-  let uploadImage = (file, done, progress) => {
-    console.log(file)
-    // console.log(  done)
-    // console.log("progress" + progress)
-    // do your upload logic here
-    let error = null
-    let uploadedImageURL = file
-    done(error, uploadedImageURL)
-      console.log(uploadImage)
-  }
+  // Images
+
+  const allImputs = { imgUrl: "" };
+  const [imageAsFile, setImageAsFile] = useState("");
+  const [imageAsUrl, setImageAsUrl] = useState(allImputs);
+
+  console.log(imageAsFile);
+  const handleImageAsFile = (e) => {
+    const tripImages = e.target.files[0];
+    setImageAsFile((imageFile) => tripImages);
+  };
+
+  const handleFireBaseUpload = (e) => {
+    e.preventDefault();
+    console.log("start of upload");
+    // async magic goes here...
+    if (imageAsFile === "") {
+      console.error(`not an image, the image file is a ${typeof imageAsFile}`);
+    }
+    const uploadTask = storage
+      .ref(`/images/${imageAsFile.name}`)
+      .put(imageAsFile);
+    //initiates the firebase side uploading
+    uploadTask.on(
+      "state_changed",
+      (snapShot) => {
+        //takes a snap shot of the process as it is happening
+        console.log(snapShot);
+      },
+      (err) => {
+        //catches the errors
+        console.log(err);
+      },
+      () => {
+        // gets the functions from storage refences the image storage in firebase by the children
+        // gets the download url then sets the image from firebase as the value for the imgUrl key:
+        storage
+          .ref("images")
+          .child(imageAsFile.name)
+          .getDownloadURL()
+          .then((fireBaseUrl) => {
+            setImageAsUrl({ tripImages: fireBaseUrl });
+            setTrip({ ...trip, tripImages: fireBaseUrl });
+          });
+      }
+    );
+  };
 
   return (
     <div className="section landing-section">
@@ -104,7 +132,7 @@ function CreateTripForm(props) {
           </Col>
           <Col className="ml-auto mr-auto" md="8">
             <h2 className="text-center">Create A New Trip</h2>
-            <Form className="contact-form">
+            <Form className="contact-form" onSubmit={(e) => onSubmit(e)}>
               <div className="form-row">
                 <FormGroup className="col-md-6">
                   <Label for="inputState">Trip Style</Label>
@@ -150,7 +178,10 @@ function CreateTripForm(props) {
                       name="startDate"
                       onChange={(e) => onChangeTime(e)}
                     >
-                      <DatePicker selected={startDate} onChange={(e) => onChangeTime(e)} />
+                      <DatePicker
+                        selected={startDate}
+                        onChange={(e) => onChangeTime(e)}
+                      />
                       <InputGroupAddon addonType="append">
                         <InputGroupText>
                           <span className="glyphicon glyphicon-calendar">
@@ -193,38 +224,15 @@ function CreateTripForm(props) {
               <FormGroup>
                 <Label for=""> Trip Images</Label>
                 <div className="mb-1">
-
-
-
-                <ImageUploader
-        onUpload={uploadImage}
-        onRender={(props, state) => {
- 
-          // render customized child image state
-          if (props.image) {
-            return (
-              <div style={{backgroundImage: `url(${props.image})`}} >
-                <button onClick={props.onRequestRemove}>Remove</button>
-                {props.error && <div>An error occurred</div>}
-              </div>
-            )
-          }
-                    // render default child drag target
-                    return (
-                      <div>
-                        <button onClick={props.onUploadPrompt} onChange={onImageChange}>Upload</button>
-                      </div>
-                    )
-                  }}/>
-
-                  {/* <div className="">
+                  {/* Image */}
+                  <form onSubmit={handleFireBaseUpload}>
                     <input
                       type="file"
-                      id="file-input"
                       name="tripImages"
-                      onChange={(e) => onImageChange(e)}
+                      onChange={handleImageAsFile}
                     />
-                  </div> */}
+                    <button>upload to firebase</button>
+                  </form>
                 </div>
               </FormGroup>
               <FormGroup>
@@ -237,7 +245,13 @@ function CreateTripForm(props) {
                 />
               </FormGroup>
               <Col className="text-center">
-                <Button className="btn-fill" type="submit" color="danger" size="lg" onClick={(e) => onSubmit(e)}>
+                <Button
+                  className="btn-fill"
+                  type="submit"
+                  color="danger"
+                  size="lg"
+                  
+                >
                   Create a new trip!
                 </Button>
               </Col>
