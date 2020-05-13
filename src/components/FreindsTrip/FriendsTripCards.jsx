@@ -18,6 +18,7 @@ import '../../assets/css/tripsCards.css'
 
 function FriendsTripCards () {
   const [trip, setTrip] = useState([]);
+  const [company, setCompany] = useState([]);
 
   let getTrip = async (e) => {
     try {
@@ -33,6 +34,7 @@ function FriendsTripCards () {
       );
       setTrip(data.data);
       console.log(data)
+      setCompany(data.data.user[0])
     } catch (err) {
       console.log(err.response);
     }
@@ -62,7 +64,7 @@ function FriendsTripCards () {
                       {trip.destination}
                     </CardText>
                     <p className="fontStyle"> {trip.duration}</p>
-                    {/* <p className="fontStyle">{company.companyName}</p> */}
+                    <p className="fontStyle">{company.companyName}</p>
                     <Button className="details-btn-c">More Details</Button>
                   </CardBody>
                 </Card>

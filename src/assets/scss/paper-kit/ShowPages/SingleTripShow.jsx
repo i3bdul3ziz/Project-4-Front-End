@@ -4,6 +4,7 @@ import 'assets/css/ShowTrips.css'
 import {
     Row,
     Col,
+    Container
   } from "reactstrap";
 import Slider from "components/Slider/Slider";
 import { Map, Marker, GoogleApiWrapper } from "google-maps-react";
@@ -46,9 +47,11 @@ function SingleTripShow(props) {
       };
 
       const mapStyles = {
-        margin: "0",
-        width: "70%",
-        height: "70%",
+        "z-index": "1000",
+        width: "50%",
+        height: "50%",
+        "margin-top": "1600px",
+        "margin-left": "350px"
       };
 
 
@@ -57,52 +60,108 @@ function SingleTripShow(props) {
       },[Marker]);
 
   return ( 
-    <div> 
-        <Row>
-            <Col md={6}>
-            <h1 className="title show-title-style" >Google Maps</h1>   
-            <div  >
-            <Map
+    <div>           
+  <input id="menu__toogler" type="checkbox"/>
+  <div class="main__wrapper">
+    <header 
+    style={{
+      backgroundImage:
+        "url(" + trip.tripImages+ ")"
+    }}>
+      
+      <div class="header__title">
+        <h1>{trip.destination}</h1>
+      <br />
+        <Button className="A" onClick={bookTrip}> Book Now! </Button>
+      </div>
+    </header>
+    <div class="main-container">
+      <h1>Trip Details</h1>
+
+<table className="tripdetails">
+  <tr>
+    <td><p>Trip Style:</p> </td>
+    <td><p>{trip.tripStyle} </p></td>
+  </tr>
+  <tr>
+    <td><p>Number Of People:</p> </td>
+    <td> <p>{trip.numberOfPeople} </p></td>
+  </tr>
+    <tr>
+    <td><p>Start Date:</p> </td>
+    <td><p>{trip.startDate} </p></td>
+  </tr>
+    <tr>
+    <td><p>Duration:</p> </td>
+    <td><p>{trip.duration} </p></td>
+  </tr>
+</table>
+      <p> {trip.description}</p>
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br /> 
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br /> 
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br /> 
+      <br />
+      <br />
+      <br />
+    </div>
+
+    {/* <div class="contact">
+        <h2>
+        Contact
+        <br />
+        Information
+        </h2>
+        <hr />
+        <h3>
+        1234 Main Street,
+        <br />
+        New York, NY 10022
+        </h3>
+        <p>
+        <span class="prefix">Office:</span>
+        1 800 987 4567
+        <br />
+        <span class="prefix">Cell:</span>
+        1 800 123 6578
+        <br />
+        <span class="prefix">FAX:</span>
+        1 800 321 4567
+        <br />
+        E-mail:
+        <a class="email" href="mailto:#">mail@email.com</a>
+        </p>
+      </div> */}
+    <div><Map
               google={props.google}
               zoom={8}
               style={mapStyles}
               initialCenter={{ lat: latV, lng: lngV }}
             >
                 <Marker position={{ lat: latV, lng: lngV}} />
-            </Map>       
+            </Map>
             </div>
-            </Col>
-            <Col md={6}>
-                <h2 className="title show-title-style">{trip.destination}</h2>
-                <Slider tripImage={trip.tripImages}/>
-                <Row>
-                    <h2 className="title show-title-style2" >{trip.description}</h2>
-                </Row>
-                <Row>
-                    <p>{trip.tripStyle}</p>
-                </Row>
-                <Row>
-                    <p>{trip.startDate}</p>
-                </Row>
-                <Row>
-                    <p>{trip.duration}</p>
-                </Row>
-                <Row>
-                    <p>{trip.numberOfPeople}</p>
-                </Row>
-                <Row>
-                    {/* <p>{company.companyName}</p> */}
-                </Row>
-                <Row>
-                <Button 
-                    className="A" onClick={bookTrip} // TO BE DESIGNED 
-                    >
-                      Book Now!
-                    </Button>
-
-                </Row>
-            </Col>
-        </Row>
+  </div>
     </div>
   );
 }
