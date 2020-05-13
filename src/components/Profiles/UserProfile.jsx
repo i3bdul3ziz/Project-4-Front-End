@@ -58,8 +58,6 @@ function UserProfile(props) {
         `http://localhost:4000/user/${props.match.params.id}/edit`,
         user
       );
-
-=======
       // console.log(data.data.company)
     } catch (err) {
       console.log(err.response);
@@ -160,7 +158,6 @@ function UserProfile(props) {
                       replace   >
                         More Details
                         </Button>
-
                     <Button className="delete-btn-c">Cancel</Button>
                   </CardBody>
                 </Card>

@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { storage } from "../../firebase/firebase";
 import {
@@ -16,8 +15,8 @@ import {
 } from "reactstrap";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import Axios from "axios";
-import { Map, Marker, GoogleApiWrapper } from "google-maps-react";
+import axios from "axios";
+
 
 function EditTripForm(props) {
   const [startDate, setStartDate] = useState(new Date());
@@ -33,7 +32,6 @@ function EditTripForm(props) {
     setTrip({ ...trip, [name]: value });
   };
 
-
   let updateHandler = async () => {
     // console.log(company);
     try {
@@ -46,11 +44,9 @@ function EditTripForm(props) {
     }
   };
 
-  useEffect(() => {});
 
 
   // Images
-
   const allImputs = { imgUrl: "" };
   const [imageAsFile, setImageAsFile] = useState("");
   const [imageAsUrl, setImageAsUrl] = useState(allImputs);
@@ -102,21 +98,6 @@ function EditTripForm(props) {
     <div className="section landing-section">
       <Container>
         <Row>
-          <Col className="ml-auto mr-auto" md="4">
-            <br /> <br />
-            <br />
-            <br />
-            <br />
-            <Map
-              google={props.google}
-              zoom={8}
-              style={mapStyles}
-              onClick={getLatLng}
-              initialCenter={{ lat: 23.8859, lng: 45.0792 }}
-            >
-              <Marker position={obj} />
-            </Map>
-          </Col>
           <Col className="ml-auto mr-auto" md="8">
 
             <h2 className="text-center">Edit Trip</h2>
@@ -209,10 +190,10 @@ function EditTripForm(props) {
                   onChange={(e) => onChangeInput(e)}
                 />
               </FormGroup>
-              {/* <FormGroup>
+              <FormGroup>
                 <Label for=""> Trip Images</Label>
                 <div className="mb-1">
-                  {/* Image */}
+                   Image
                   <form onSubmit={handleFireBaseUpload}>
                     <input
                       type="file"
@@ -222,7 +203,7 @@ function EditTripForm(props) {
                     <button>upload to firebase</button>
                   </form>
                 </div>
-              </FormGroup> */}
+              </FormGroup>
               <FormGroup>
                 <Label for="">Trip Desicription</Label>
                 <Input

@@ -7,6 +7,7 @@ import {
   } from "reactstrap";
 import Slider from "components/Slider/Slider";
 import { Map, Marker, GoogleApiWrapper } from "google-maps-react";
+import { Button } from "react-bootstrap"
 
 function SingleTripShow(props) {
     const [trip, setTrip] = useState({});
@@ -14,7 +15,7 @@ function SingleTripShow(props) {
     const [lngV, setLngV] = useState(parseFloat(45.0792));
     const [company, setCompany] = useState([])
 
-    let getOnTrip = () => {
+    let getOneTrip = () => {
         Axios.get(`http://localhost:4000/trip/${props.match.params.id}`, {
           headers: {
             token: localStorage.getItem("token"),
@@ -32,6 +33,18 @@ function SingleTripShow(props) {
           .catch((err) => console.log(err));
       };
 
+      let bookTrip = () => {
+        Axios.put(`http://localhost:4000/trip/${props.match.params.id}/book`, {
+          headers: {
+            token: localStorage.getItem("token"),
+          },
+        })
+          .then((res) => {
+            console.log(res)
+          })
+          .catch((err) => console.log(err));
+      };
+
       const mapStyles = {
         margin: "0",
         width: "70%",
@@ -40,7 +53,7 @@ function SingleTripShow(props) {
 
 
       useEffect(() => {
-        getOnTrip();
+        getOneTrip();
       },[Marker]);
 
   return ( 
@@ -78,7 +91,15 @@ function SingleTripShow(props) {
                     <p>{trip.numberOfPeople}</p>
                 </Row>
                 <Row>
-                    <p>{company.companyName}</p>
+                    {/* <p>{company.companyName}</p> */}
+                </Row>
+                <Row>
+                <Button 
+                    className="A" onClick={bookTrip} // TO BE DESIGNED 
+                    >
+                      Book Now!
+                    </Button>
+
                 </Row>
             </Col>
         </Row>

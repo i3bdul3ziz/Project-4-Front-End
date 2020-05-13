@@ -67,7 +67,9 @@ function CompanyProfile(props) {
  axios.delete(`http://localhost:4000/trip/${id}/delete`, {
      headers: {token}
  })
- .then(message => console.log("deleted"))
+ .then(message => {
+   props.history.push("/home"); // Must return to company profile
+   console.log("deleted")})
  .catch(err => {
      setMessage(err.response.data.message)
      setTimeout(() => {
