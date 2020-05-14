@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
+
 // reactstrap components
 import {
   Card,
@@ -15,7 +16,10 @@ import {
 import axios from "axios";
 import "../../assets/css/tripsCards.css";
 
-function FamilyTripCards() {
+
+
+function FamilyTripCards (props) {
+
   const [trip, setTrip] = useState([]);
 
   let getTrip = async (e) => {
@@ -66,6 +70,7 @@ function FamilyTripCards() {
                     >
                       More Details
                     </Button>
+
                   </CardBody>
                 </Card>
               </Col>

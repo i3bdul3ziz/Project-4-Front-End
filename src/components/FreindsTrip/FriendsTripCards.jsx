@@ -17,7 +17,7 @@ import "../../assets/css/tripsCards.css";
 
 function FriendsTripCards() {
   const [trip, setTrip] = useState([]);
-  const [company, setCompany] = useState([]);
+  const [company, setCompany] = useState(null);
 
   let getTrip = async (e) => {
     try {
@@ -27,12 +27,16 @@ function FriendsTripCards() {
         },
       });
       setTrip(data.data);
-      console.log(data);
-      setCompany(data.data.user[0]);
+
+      console.log(data)
+      setCompany(data.data.user[0].companyName)
+
     } catch (err) {
       console.log(err.response);
     }
   };
+
+  console.log(company)
 
   useEffect(() => {
     getTrip();
@@ -59,7 +63,8 @@ function FriendsTripCards() {
                       {trip.destination}
                     </CardText>
                     <p className="fontStyle"> {trip.duration}</p>
-                    <p className="fontStyle">{company.companyName}</p>
+
+                 <p className="fontStyle">{trip.user.map((name) => "Company Name : " + name.companyName)}</p>
                     <Button
                       as={Link}
                       to={`/trips/${trip._id}`}
@@ -67,6 +72,7 @@ function FriendsTripCards() {
                     >
                       More Details
                     </Button>
+
                   </CardBody>
                 </Card>
               </Col>

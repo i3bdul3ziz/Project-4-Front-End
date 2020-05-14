@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { storage } from "../../firebase/firebase";
-
+import {withRouter} from "react-router-dom"
 import {
   Button,
   Form,
@@ -44,6 +44,7 @@ function CreateTripForm(props) {
     })
       .then((res) => {
         console.log(res);
+        props.history.push(`/companyprofile/${props.company._id}`)
       })
       .catch((err) => {
         console.log("error");
@@ -262,4 +263,4 @@ function CreateTripForm(props) {
 }
 export default GoogleApiWrapper({
   apiKey: "AIzaSyCVCIuwNO1D5Qr2qyD3fWycf97sJcTyTx8",
-})(CreateTripForm);
+})(withRouter(CreateTripForm));

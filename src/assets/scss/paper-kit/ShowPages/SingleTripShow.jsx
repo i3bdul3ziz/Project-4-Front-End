@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from "react";
 import Axios from "axios";
-import "assets/css/ShowTrips.css";
-import { Row, Col, Container } from "reactstrap";
+import {withRouter} from "react-router-dom"
+import 'assets/css/ShowTrips.css'
+import {
+    Row,
+    Col,
+    Container
+  } from "reactstrap";
+
 import Slider from "components/Slider/Slider";
 import { Map, Marker, GoogleApiWrapper } from "google-maps-react";
 import { Button } from "react-bootstrap";
@@ -30,21 +36,20 @@ function SingleTripShow(props) {
       .catch((err) => console.log(err));
   };
 
-  let bookTrip = () => {
-    Axios.put(
-      `http://localhost:4000/trip/${props.match.params.id}/book`,
-      {},
-      {
-        headers: {
-          token: localStorage.getItem("token"),
-        },
-      }
-    )
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => console.log(err.response));
-  };
+
+      let bookTrip = () => {
+        Axios.put(`http://localhost:4000/trip/${props.match.params.id}/book`, {}, {
+          headers: {
+            token: localStorage.getItem("token"),
+          },
+        })
+          .then((res) => {
+            console.log(res)
+            props.history.push(`/userprofile/${props.user._id}`)
+          })
+          .catch((err) => console.log(err.response));
+      };
+
 
   const mapStyles = {
     "z-index": "1000",
@@ -144,7 +149,8 @@ function SingleTripShow(props) {
           <br />
         </div>
 
-        {/* <div class="contact">
+    {/* <div class="contact">
+
         <h2>
         Contact
         <br />
@@ -182,8 +188,10 @@ function SingleTripShow(props) {
         </div>
       </div>
     </div>
+    </div>
   );
 }
 export default GoogleApiWrapper({
-  apiKey: "AIzaSyCVCIuwNO1D5Qr2qyD3fWycf97sJcTyTx8",
-})(SingleTripShow);
+    apiKey: "AIzaSyCVCIuwNO1D5Qr2qyD3fWycf97sJcTyTx8",
+  })(withRouter(SingleTripShow));
+
