@@ -134,7 +134,7 @@ function App(props) {
                       <SectionLogin {...props} userSignin={userSignin} />
                       )}
                   />
-            { isLogin &&
+            { isLogin ?
             <>
            <Route
              path="/familytrip"
@@ -161,7 +161,6 @@ function App(props) {
               path="/userprofile/:id"
               render={(props) => <UserProfile {...props} user={user}/>}
             />
-
             : <>
             {company ?
             <>
@@ -181,8 +180,10 @@ function App(props) {
             :
               <Redirect to="/home"/>
             }</>
-            }
+          }
            </>
+           :
+           <Redirect to="/signup"/>
             }
           <Route path="/forgotpass" render={(props) => <Forgot {...props} />} />
           <Route
@@ -190,7 +191,6 @@ function App(props) {
             render={(props) => <Reset {...props} />}
           />
         </Switch>
-        <NotificationContainer />
       </div>
 </>
       }

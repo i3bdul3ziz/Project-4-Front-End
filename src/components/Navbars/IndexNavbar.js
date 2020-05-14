@@ -2,7 +2,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {Link} from "react-router-dom"
 import {
   faHome,
-  faMapMarkedAlt,
   faSignInAlt,
   faUserPlus,
   faUserCircle,
@@ -89,19 +88,6 @@ function IndexNavbar(props) {
                 <p className="d-lg-none">HOME</p>
               </NavLink>
             </NavItem>
-            <NavItem>
-              <NavLink
-                data-placement="bottom"
-                onClick={() => window.scrollTo(1000,0)}
-                title="Explore Our Trips"
-              >
-                <i>
-                  <FontAwesomeIcon size="lg" icon={faMapMarkedAlt} />{" "}
-                </i>
-                <p className="d-lg-none">TRIPS</p>
-              </NavLink>
-            </NavItem>
-
             {props.isLogin ? (
               <>
                 <NavItem>
