@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Axios from "axios";
+import {withRouter} from "react-router-dom"
 import 'assets/css/ShowTrips.css'
 import {
     Row,
@@ -42,6 +43,7 @@ function SingleTripShow(props) {
         })
           .then((res) => {
             console.log(res)
+            props.history.push(`/userprofile/${props.user._id}`)
           })
           .catch((err) => console.log(err.response));
       };
@@ -67,13 +69,17 @@ function SingleTripShow(props) {
     <header 
     style={{
       backgroundImage:
-        "url(" + trip.tripImages+ ")"
+        "url(" + trip.tripImages + ")"
     }}>
       
       <div class="header__title">
         <h1>{trip.destination}</h1>
       <br />
+        {props.user ?
         <Button className="A" onClick={bookTrip}> Book Now! </Button>
+        :
+        <></>
+      }
       </div>
     </header>
     <div class="main-container">
@@ -164,8 +170,9 @@ function SingleTripShow(props) {
             </div>
 
     </div>
+    </div>
   );
 }
 export default GoogleApiWrapper({
     apiKey: "AIzaSyCVCIuwNO1D5Qr2qyD3fWycf97sJcTyTx8",
-  })(SingleTripShow);
+  })(withRouter(SingleTripShow));

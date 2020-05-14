@@ -32,6 +32,7 @@ function IndexNavbar(props) {
   };
   console.log(props.user)
   React.useEffect(() => {
+    window.scrollTo(800,800)
     
     const updateNavbarColor = () => {
       if (
@@ -81,7 +82,7 @@ function IndexNavbar(props) {
         >
           <Nav navbar>
             <NavItem>
-              <NavLink data-placement="bottom" href="/" title="Go Home">
+              <NavLink data-placement="bottom" href="/home" title="Go Home">
                 <i>
                   <FontAwesomeIcon size="lg" icon={faHome} />{" "}
                 </i>
@@ -91,7 +92,7 @@ function IndexNavbar(props) {
             <NavItem>
               <NavLink
                 data-placement="bottom"
-                href="/createtrip"
+                onClick={() => window.scrollTo(1000,0)}
                 title="Explore Our Trips"
               >
                 <i>
