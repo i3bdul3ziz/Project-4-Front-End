@@ -30,7 +30,10 @@ function AboutWebsite() {
             <Col className="ml-auto mr-auto" md="8">
               <h2 className="title">Why Trip To Go?</h2>
               <h5 className="description">
-              In order to achieve the <strong>Saudi vision 2030</strong> and due to the rapid tourism era.<strong>Trip To Go </strong> is the perfect connection between the tourist and tourism companies for trips that exceeds your expectations in Saudi Arabia. This makes it easy for the tourists to find all the trips from many companies in one place! 
+              In order to achieve the <strong>Saudi vision 2030</strong> and due to the rapid tourism era.
+              <strong>Trip To Go </strong> is the perfect connection between the tourist and tourism companies for trips 
+              that exceeds your expectations in Saudi Arabia. This makes it easy for the tourists to find all the trips 
+              from many companies in one place! 
               </h5>
               <br />
               <Button
