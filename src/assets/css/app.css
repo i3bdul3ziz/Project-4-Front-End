@@ -17,3 +17,8 @@ body, html{
     bottom: 0 !important;
     padding-top: 2%;
 }
+
+.navbar.navbar-transparent{
+    background-color: rgba(0, 0, 0, 0.2) !important;
+    padding-top: 0 !important;
+}

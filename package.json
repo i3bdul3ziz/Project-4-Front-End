@@ -33,6 +33,7 @@
     "react-image-uploader": "^1.0.0",
     "react-inline-editing": "^1.0.10",
     "react-items-carousel": "^2.8.0",
+    "react-notifications": "^1.6.0",
     "react-router": "5.0.1",
     "react-router-dom": "5.0.1",
     "react-scripts": "3.0.1",

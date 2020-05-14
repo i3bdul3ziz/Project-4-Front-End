@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { storage } from "../../firebase/firebase";
-
+import {withRouter} from "react-router-dom"
 import {
   Button,
   Form,
@@ -18,11 +18,13 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Axios from "axios";
 import { Map, Marker, GoogleApiWrapper } from "google-maps-react";
+import { NotificationManager } from 'react-notifications';
 
 function CreateTripForm(props) {
   const [startDate, setStartDate] = useState(new Date());
   const [trip, setTrip] = useState("");
   const [obj, setObj] = useState({ lat: 23.8859, lng: 45.0792 });
+ 
 
   const mapStyles = {
     margin: "0",
@@ -44,6 +46,8 @@ function CreateTripForm(props) {
     })
       .then((res) => {
         console.log(res);
+        props.history.push(`/companyprofile/${props.company._id}`)
+        NotificationManager.success('You have created a new trip!', 'Successful!', 2000);
       })
       .catch((err) => {
         console.log("error");
@@ -51,7 +55,6 @@ function CreateTripForm(props) {
   };
 
   let onChangeInput = ({ target: { name, value } }) => {
-    console.log(trip);
     setTrip({ ...trip, [name]: value });
   };
 
@@ -59,8 +62,6 @@ function CreateTripForm(props) {
     setObj({ lat: c.latLng.lat(), lng: c.latLng.lng() });
 
     setTrip({ ...trip, lat: c.latLng.lat(), lng: c.latLng.lng() });
-    console.log(c.latLng.lng());
-    console.log(c.latLng.lat());
   };
 
   // Images
@@ -97,8 +98,6 @@ function CreateTripForm(props) {
         console.log(err);
       },
       () => {
-        // gets the functions from storage refences the image storage in firebase by the children
-        // gets the download url then sets the image from firebase as the value for the imgUrl key:
         storage
           .ref("images")
           .child(imageAsFile.name)
@@ -264,4 +263,4 @@ function CreateTripForm(props) {
 }
 export default GoogleApiWrapper({
   apiKey: "AIzaSyCVCIuwNO1D5Qr2qyD3fWycf97sJcTyTx8",
-})(CreateTripForm);
+})(withRouter(CreateTripForm));

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Axios from "axios";
 import swal from 'sweetalert';
 import "assets/css/sign.css";
+import { NotificationManager } from 'react-notifications';
 
 import { Row, Col } from "reactstrap";
 
@@ -22,6 +23,7 @@ function SignupCompany(props) {
       .then((res) => {
         if (res.data.signup) {
             props.history.push("/companysignin");
+            NotificationManager.success('You have signed up!', 'Successful!', 300);
         } else {
           setSignup(true);
           setTimeout(() => {

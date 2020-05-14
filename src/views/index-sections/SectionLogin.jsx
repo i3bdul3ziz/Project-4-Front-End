@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
 import Axios from "axios";
 import "assets/css/sign.css";
+import { NotificationManager } from 'react-notifications';
+
 
 function SectionLogin(props) {
   const [signin, setSignin] = useState({});
 
   let onChangeInput = ({ target: { name, value } }) => {
     setSignin({ ...signin, [name]: value });
-    console.log(signin)
+
   };
   useEffect(() => {});
 
@@ -19,6 +21,7 @@ function SectionLogin(props) {
           localStorage.setItem("token", res.data.token);
           props.userSignin();
           props.history.push("/home");
+          NotificationManager.success('You have signed in!', 'Successful!', 3000);
         } else {
           console.log("email or password is not correct");
         }

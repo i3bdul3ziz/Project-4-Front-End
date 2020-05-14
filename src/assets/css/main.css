@@ -401,24 +401,22 @@ input.input100 {
 .details-btn-c{
   border: none !important;
   padding: 5px 10px;
-  background-color: rgb(68, 85, 236);
   margin-right: 7%;
 }
 
-.details-btn-c:hover{
+/* .details-btn-c:hover{
   background-color: rgb(52, 65, 180);
-}
+} */
 
 .edit-btn-c{
   border: none !important;
   padding: 5px 10px;
-  background-color: rgb(68, 85, 236);
   margin-right: 7%;
 }
 
-.edit-btn-c:hover{
+/* .edit-btn-c:hover{
   background-color: rgb(52, 65, 180);
-}
+} */
 
 .delete-btn-c{
   border: none !important;

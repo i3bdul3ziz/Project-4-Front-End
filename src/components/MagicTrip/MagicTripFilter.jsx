@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-
+import { Link } from "react-router-dom";
+import { Button } from "react-bootstrap";
 // reactstrap components
 import {
   Container,
   Row,
   Col,
-  Button,
   FormGroup,
   Label,
   Input,
@@ -15,7 +15,6 @@ import {
   CardTitle,
   CardText,
 } from "reactstrap";
-
 import "../../assets/css/tripsCards.css";
 import axios from "axios";
 
@@ -70,19 +69,10 @@ function MagicTripFilter(props) {
   }
 
   function filterTrips({ target: { name, value } }) {
-    //  test the output
-    // filter = { ...filter, [name]: value };
     setFilter({ ...filter, [name]: value });
-
-    // console.log(value);
-    // // console.log(allTrips)
-    // let selected = solve(filter, allTrips);
-    // setSelectedTrips(selected);
-    // console.log(selected)
   }
   return (
     <>
-      {filter.tripStyle == "Family Trip" ? <div>TEST</div> : <div></div>}
       <Container className="fTripsSection">
         <Row>
           <h2 style={{ margin: "70px auto" }} className="title">
@@ -147,7 +137,7 @@ function MagicTripFilter(props) {
           </Col>
         </Row>
         <Row className="justify-content-center">
-          <Button className="text-center" onClick={applyMagic}>
+          <Button className="text-center cardButtonStylem" onClick={applyMagic}>
             Apply Magic
           </Button>
         </Row>
@@ -155,6 +145,9 @@ function MagicTripFilter(props) {
         <Row className="justify-content-center">
           {magic.key ? (
             <Col md={4}>
+              <br />
+              <br />
+              <br />
               <Card style={{ width: "20rem" }}>
                 <CardImg top src={magic.key.tripImages} alt="..." />
                 <CardBody>
@@ -165,7 +158,13 @@ function MagicTripFilter(props) {
                     {magic.key.destination}
                   </CardText>
                   <p className="fontStyle"> {magic.key.duration}</p>
-                  <Button className="cardButtonStyle">More Details</Button>
+                  <Button
+                    as={Link}
+                    to={`/trips/${magic.key._id}`}
+                    className="cardButtonStylem"
+                  >
+                    More Details
+                  </Button>
                 </CardBody>
               </Card>
             </Col>
