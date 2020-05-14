@@ -30,13 +30,6 @@ function AboutWebsite() {
               from many companies in one place! 
               </h5>
               <br />
-              <Button
-                className="btn-round btn-color"
-                href="/trips"
-                onClick={e => e.preventDefault()}
-              >
-                See Details
-              </Button>
             </Col>
           </Row>
           <br />
