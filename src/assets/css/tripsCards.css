@@ -15,6 +15,15 @@
     background: rgb(110, 136, 132);
 }
 
+
+.cardButtonStylem{
+    background: #6f0000;
+    border: none !important;
+}
+.cardButtonStylem:hover{
+    background: #350101;
+}
+
 .fTripsSection{
     width: 100% !important;
     background-color: #fff !important;

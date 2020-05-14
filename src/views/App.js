@@ -60,24 +60,23 @@ function App() {
     setIsLogin(false);
   };
 
-
-      function cleanup() {
-        document.body.classList.remove("index");
-      };
+  function cleanup() {
+    document.body.classList.remove("index");
+  }
   document.documentElement.classList.remove("nav-open");
-  
-  function effect(){
-    companySignin()
-    userSignin()
+
+  function effect() {
+    companySignin();
+    userSignin();
     document.body.classList.add("index");
   }
 
-      useEffect(() => {
-        effect()
-        return () => {
-          // cleanup()
-        }
-      },[])
+  useEffect(() => {
+    effect();
+    return () => {
+      // cleanup()
+    };
+  }, []);
 
   // useEffect(() => {
   //   // // userSignin();
@@ -151,12 +150,12 @@ function App() {
           />
           <Route
             path="/userprofile/:id"
-            render={(props) => <UserProfile {...props} user={user}/>}
+            render={(props) => <UserProfile {...props} user={user} />}
           />
 
           <Route
             path="/companyprofile/:id"
-            render={(props) => <CompanyProfile {...props} company={company}/>}
+            render={(props) => <CompanyProfile {...props} company={company} />}
           />
 
           <Route
@@ -165,7 +164,7 @@ function App() {
           />
           <Route
             path="/edittrip/:id"
-            render={(props) => <EditPage {...props} />}
+            render={(props) => <EditPage {...props} company={company} />}
           />
           <Route path="/forgotpass" render={(props) => <Forgot {...props} />} />
           <Route
