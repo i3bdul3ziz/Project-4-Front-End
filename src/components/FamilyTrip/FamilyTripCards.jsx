@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import {Link} from "react-router-dom";
+import {Button} from "react-bootstrap"
 // reactstrap components
 import {
   Card,
@@ -9,13 +11,12 @@ import {
   CardBody,
   CardTitle,
   CardText,
-  Button,
 } from "reactstrap";
 import axios from "axios";
 import '../../assets/css/tripsCards.css'
 
 
-function FamilyTripCards () {
+function FamilyTripCards (props) {
   const [trip, setTrip] = useState([]);
 
   let getTrip = async (e) => {
@@ -61,7 +62,10 @@ function FamilyTripCards () {
                     </CardText>
                     <p className="fontStyle"> {trip.duration}</p>
                     {/* <p className="fontStyle">{company.companyName}</p> */}
-                    <Button className="cardButtonStyle">More Details</Button>
+                    <Button className="cardButtonStyle"
+                    as={Link} 
+                    to={`/trips/${trip._id}`}
+                    >More Details</Button>
                   </CardBody>
                 </Card>
               </Col>
