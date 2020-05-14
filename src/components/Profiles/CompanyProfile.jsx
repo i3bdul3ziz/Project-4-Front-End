@@ -17,6 +17,7 @@ import {Button} from "react-bootstrap"
 import "assets/css/main.css";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { NotificationManager } from 'react-notifications';
 
 function CompanyProfile(props) {
   const [company, setCompany] = useState({});
@@ -28,7 +29,6 @@ function CompanyProfile(props) {
         `http://localhost:4000/company/${props.match.params.id}`
       );
       setCompany(data.data.company);
-      console.log(company)
     } catch (err) {
       console.log(err.response);
     }
@@ -38,24 +38,16 @@ function CompanyProfile(props) {
     let temp = {...company}; //copy state object
     temp[e.target.name] = e.target.value;
     setCompany(temp);
-    console.log(temp);
-    console.log(company);
 
   };
 
-  // let changeHandler = ({ target: { name, value } }) => {
-  //   setCompany({ ...company, [name]: value });
-  //   console.log(company);
-  // };
 
   let updateHandler = async () => {
-    // console.log(company);
     try {
       let data = await axios.put(
         `http://localhost:4000/company/${props.match.params.id}/edit`,
         company
       );
-      // console.log(data.data.company)
     } catch (err) {
       console.log(err.response);
     }
@@ -68,7 +60,8 @@ function CompanyProfile(props) {
      headers: {token}
  })
  .then(message => {
-   props.history.push("/home"); // Must return to company profile
+   props.history.push("/home"); 
+   NotificationManager.success('You have deleted a trip!', 'Successful!', 3000);
    console.log("deleted")})
  .catch(err => {
      setMessage(err.response.data.message)
@@ -90,7 +83,7 @@ function CompanyProfile(props) {
       <Container>
         <Row>
           <Col className="ml-auto mr-auto" md="8">
-            <h2 className="text-center">Company Profile</h2>
+            <h2 className="text-center mt-5">Company Profile</h2>
             <Form className="contact-form">
               <Row>
                 <Col md={6}>
@@ -154,26 +147,30 @@ function CompanyProfile(props) {
                 >
                   Save Changes
                 </Button>
-                {/* <Button
-
-                  className="btn-fill"
-                  color="danger"
-                  size="lg"
-                  // as={Link}
-                  // to={`/companyprofile/${props.company._id}/createtrip`}
-                >
-                  Create Trips
-                </Button> */}
+          
               </Col>
             </Form>
           </Col>
         </Row>
         <Row>
-          <h2 style={{ margin: "70px auto 70px auto" }} className="title">
+          <h2 style={{ margin: "70px auto 70px auto" }} className="">
             Created Trips
           </h2>
         </Row>
+        <Row className="justify-content-center">
+        <Button
+                  className="btn-fill mb-5"
+                  color="danger"
+                  size="md"
+                  as={Link} 
+                  to={"/createtrip"}
+                  
+                >
+                  Create Trip
+                </Button>
+        </Row>
         <Row>
+
     {company.trips ? 
           company.trips.map((trip) => 
 
@@ -193,7 +190,8 @@ function CompanyProfile(props) {
                     </CardText>
                     <p className="fontStyle"> {trip.duration}</p>
                     <p className="fontStyle">{company.companyName}</p>
-                    <Button className="details-btn-c"                       
+                    <Button className="details-btn-c"
+                    size="sm"                       
                     as={Link}
                       to={`/trip/${trip._id}`}
                       replace   >
@@ -201,6 +199,7 @@ function CompanyProfile(props) {
                         </Button>
                     <Button
                       className="edit-btn-c"
+                      size="sm"
                       as={Link}
                       to={`/edittrip/${trip._id}`}
                       replace                    
@@ -210,6 +209,8 @@ function CompanyProfile(props) {
 
                     <Button 
                     className="delete-btn-c" 
+                    color=""
+                    size="sm"
                     onClick={()=> deleteTrip(trip._id)} 
                     >
                       Delete

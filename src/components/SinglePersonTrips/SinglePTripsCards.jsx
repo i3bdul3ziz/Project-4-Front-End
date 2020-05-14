@@ -26,7 +26,6 @@ function SinglePTripsCards() {
         },
       });
       setTrip(data.data);
-      console.log(data);
     } catch (err) {
       console.log(err.response);
     }
@@ -35,7 +34,6 @@ function SinglePTripsCards() {
   useEffect(() => {
     getTrip();
   });
-  console.log(trip);
   return (
     <>
       <Container className="fTripsSection">
@@ -57,7 +55,6 @@ function SinglePTripsCards() {
                       {trip.destination}
                     </CardText>
                     <p className="fontStyle"> {trip.duration}</p>
-                    {/* <p className="fontStyle">{company.companyName}</p> */}
                     <Button
                       as={Link}
                       to={`/trips/${trip._id}`}

@@ -17,6 +17,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
 import { withRouter } from "react-router-dom";
+import { NotificationManager } from 'react-notifications';
 
 function EditTripForm(props) {
   const [startDate, setStartDate] = useState(new Date());
@@ -28,7 +29,6 @@ function EditTripForm(props) {
   };
 
   let onChangeInput = ({ target: { name, value } }) => {
-    console.log(trip);
     setTrip({ ...trip, [name]: value });
   };
 
@@ -39,6 +39,7 @@ function EditTripForm(props) {
         trip
       );
       props.history.push(`/companyprofile/${props.company._id}`);
+      NotificationManager.success('You have edited trip!', 'Successful!', 3000);
     } catch (err) {
       console.log(err.response);
     }

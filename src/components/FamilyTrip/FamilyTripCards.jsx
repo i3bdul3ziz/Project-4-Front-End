@@ -30,7 +30,7 @@ function FamilyTripCards (props) {
         },
       });
       setTrip(data.data);
-      console.log(data);
+
     } catch (err) {
       console.log(err.response);
     }
@@ -39,7 +39,6 @@ function FamilyTripCards (props) {
   useEffect(() => {
     getTrip();
   });
-  console.log(trip);
   return (
     <>
       <Container className="fTripsSection">

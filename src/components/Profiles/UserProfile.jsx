@@ -18,6 +18,7 @@ import "assets/css/main.css";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { withRouter } from "react-router-dom";
+import { NotificationManager } from 'react-notifications';
 
 function UserProfile(props) {
   let [user, setUser] = useState({});
@@ -42,12 +43,10 @@ function UserProfile(props) {
     let temp = { ...user }; //copy state object
     temp[e.target.name] = e.target.value;
     setUser(temp);
-    // console.log(temp);
-    // console.log(company);
+
   };
 
   let updateHandler = async () => {
-    console.log(user);
 
     try {
       let data = await axios.put(
@@ -60,7 +59,6 @@ function UserProfile(props) {
   };
 
   let cancelTrip = (id) => {
-    console.log(id);
     axios
       .put(
         `http://localhost:4000/trip/${id}/cancel`,
@@ -73,7 +71,8 @@ function UserProfile(props) {
       )
       .then((res) => {
         console.log(res);
-        props.history.push(`/userprofile/${user._id}`);
+        props.history.push(`/home`);
+        NotificationManager.success('You have canceled a trip!', 'Successful!', 3000);
       })
       .catch((err) => console.log(err.response));
   };
@@ -86,7 +85,7 @@ function UserProfile(props) {
       <Container>
         <Row>
           <Col className="ml-auto mr-auto" md="8">
-            <h2 className="text-center">User Profile</h2>
+            <h2 className="text-center mt-5">User Profile</h2>
             <Form className="contact-form">
               <Row>
                 <Col md={6}>
@@ -154,7 +153,7 @@ function UserProfile(props) {
           </Col>
         </Row>
         <Row>
-          <h2 style={{ margin: "70px auto 70px auto" }} className="title">
+          <h2 style={{ margin: "70px auto 70px auto" }} className="">
             Booked Trips
           </h2>
         </Row>
@@ -173,9 +172,10 @@ function UserProfile(props) {
                     </CardText>
                     <p className="fontStyle"> {trip.duration}</p>
 
-                    {/* <p className="fontStyle">{trip.user[0].companyName}</p> */}
+        
                     <Button
                       className="details-btn-c"
+                      size="sm"
                       as={Link}
                       to={`/trip/${trip._id}`}
                       replace
@@ -184,6 +184,7 @@ function UserProfile(props) {
                     </Button>
                     <Button
                       className="delete-btn-c"
+                      size="sm"
                       onClick={() => cancelTrip(trip._id)}
                     >
                       Cancel

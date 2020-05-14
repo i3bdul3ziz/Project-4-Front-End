@@ -2,8 +2,9 @@ import React, { useState, useEffect } from "react";
 import Axios from "axios";
 import swal from 'sweetalert';
 import "assets/css/sign.css";
-
 import { Row, Col } from "reactstrap";
+import 'react-notifications/lib/notifications.css';
+import { NotificationManager } from 'react-notifications';
 
 function SignupUser(props) {
   const [user, setUser] = useState({}); // user info
@@ -22,14 +23,17 @@ function SignupUser(props) {
         .then((res) => {
           if (res.data.signup) {
             props.history.push("/usersignin");
+            NotificationManager.success('You have signed up!', 'Successful!', 3000);
           } else {
             setSignup(true);
             setTimeout(() => {
               setSignup(false);
             }, 4000);
+  
           }
         })
-        .catch((err) => console.log(err));
+        .catch((err) => console.log(err))
+     
     } else {
       swal({
         title: "Passwords are not equals!",

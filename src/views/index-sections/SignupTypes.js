@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import "assets/css/usertypes.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBuilding, faHiking } from "@fortawesome/free-solid-svg-icons";

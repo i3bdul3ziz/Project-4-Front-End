@@ -13,7 +13,7 @@ import FamilyTrip from "../components/FamilyTrip/FamilyTrip";
 import FriendsTrip from "../components/FreindsTrip/FriendsTrip";
 import SinglePersonTrip from "components/SinglePersonTrips/SinglePersonTrip";
 import MagicTrip from "components/MagicTrip/MagicTrip.jsx";
-import SingleTripShow from "assets/scss/paper-kit/ShowPages/SingleTripShow";
+import SingleTripShow from "../components/ShowPages/SingleTripShow"
 import UserProfile from "components/Profiles/UserProfile";
 import CompanyProfile from "components/Profiles/CompanyProfile";
 import CreatePage from "components/TripForm/CreatePage";
@@ -22,7 +22,8 @@ import Forgot from "components/auth/Forgot";
 import Reset from "components/auth/Reset";
 import SigninTypes from "./index-sections/SigninTypes.js";
 import CompanySignin from "./index-sections/CompanySignin";
-import { decode } from "jsonwebtoken";
+import 'react-notifications/lib/notifications.css';
+import { NotificationContainer } from 'react-notifications';
 
 function App(props) {
   const [user, setUser] = useState(null);
@@ -37,7 +38,6 @@ function App(props) {
       setUser(user);
       setIsLogin(true);
       setLoading(true);
-      console.log(user);
     } else {
       setUser(null);
       setIsLogin(false);
@@ -79,14 +79,11 @@ function App(props) {
   useEffect(() => {
     effect();
     return () => {
-      // cleanup()
+     
     };
   }, []);
 
-  // useEffect(() => {
-  //   // // userSignin();
-
-  // });
+ 
 
   console.log(isLogin)
   console.log(company)
@@ -193,6 +190,7 @@ function App(props) {
             render={(props) => <Reset {...props} />}
           />
         </Switch>
+        <NotificationContainer />
       </div>
 </>
       }

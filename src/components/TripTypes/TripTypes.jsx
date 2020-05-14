@@ -45,7 +45,7 @@ function TripTypes() {
     </ul>
     <Link to="/familytrip">
     <button> 
-    {/* <a href="/signup"></a> */}
+
     </button>
     </Link>
   </div>

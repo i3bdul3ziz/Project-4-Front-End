@@ -15,7 +15,6 @@ import {
   CardTitle,
   CardText,
 } from "reactstrap";
-
 import "../../assets/css/tripsCards.css";
 import axios from "axios";
 

@@ -7,10 +7,10 @@ import {
     Col,
     Container
   } from "reactstrap";
-
 import Slider from "components/Slider/Slider";
 import { Map, Marker, GoogleApiWrapper } from "google-maps-react";
 import { Button } from "react-bootstrap";
+import { NotificationManager } from 'react-notifications';
 
 function SingleTripShow(props) {
   const [trip, setTrip] = useState({});
@@ -42,10 +42,12 @@ function SingleTripShow(props) {
           headers: {
             token: localStorage.getItem("token"),
           },
+
         })
           .then((res) => {
             console.log(res)
             props.history.push(`/userprofile/${props.user._id}`)
+            NotificationManager.success('You have booked a trip!', 'Successful!', 3000);
           })
           .catch((err) => console.log(err.response));
       };
@@ -187,8 +189,7 @@ function SingleTripShow(props) {
           </Map>
         </div>
       </div>
-    </div>
-    </div>
+      </div>
   );
 }
 export default GoogleApiWrapper({
