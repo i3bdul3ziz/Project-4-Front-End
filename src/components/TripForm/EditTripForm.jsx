@@ -16,7 +16,7 @@ import {
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
-
+import { withRouter } from "react-router-dom";
 
 function EditTripForm(props) {
   const [startDate, setStartDate] = useState(new Date());
@@ -33,17 +33,16 @@ function EditTripForm(props) {
   };
 
   let updateHandler = async () => {
-    // console.log(company);
     try {
       let data = await axios.put(
         `http://localhost:4000/trip/${props.match.params.id}/edit`,
         trip
       );
+      props.history.push(`/companyprofile/${props.company._id}`);
     } catch (err) {
       console.log(err.response);
     }
   };
-
 
 
   // Images
@@ -93,13 +92,11 @@ function EditTripForm(props) {
     );
   };
 
-
   return (
     <div className="section landing-section">
       <Container>
         <Row>
           <Col className="ml-auto mr-auto" md="8">
-
             <h2 className="text-center">Edit Trip</h2>
 
             <Form className="contact-form">
@@ -141,7 +138,7 @@ function EditTripForm(props) {
               <div className="form-row">
                 <Col sm="6">
                   <FormGroup>
-                    <Label for="inputState">Start Date : {trip.startDate}</Label>
+                    <Label for="inputState">Start Date</Label>
                     <InputGroup
                       className="date"
                       id="datetimepicker"
@@ -193,7 +190,7 @@ function EditTripForm(props) {
               <FormGroup>
                 <Label for=""> Trip Images</Label>
                 <div className="mb-1">
-                   Image
+                  Image
                   <form onSubmit={handleFireBaseUpload}>
                     <input
                       type="file"
@@ -214,10 +211,13 @@ function EditTripForm(props) {
                 />
               </FormGroup>
               <Col className="text-center">
-
-                <Button className="btn-fill" color="danger" size="lg" onClick={updateHandler}>
+                <Button
+                  className="btn-fill"
+                  color="danger"
+                  size="lg"
+                  onClick={updateHandler}
+                >
                   Edit the trip!
-
                 </Button>
               </Col>
             </Form>
@@ -227,4 +227,4 @@ function EditTripForm(props) {
     </div>
   );
 }
-export default EditTripForm;
+export default withRouter(EditTripForm);

@@ -98,8 +98,6 @@ function CreateTripForm(props) {
         console.log(err);
       },
       () => {
-        // gets the functions from storage refences the image storage in firebase by the children
-        // gets the download url then sets the image from firebase as the value for the imgUrl key:
         storage
           .ref("images")
           .child(imageAsFile.name)

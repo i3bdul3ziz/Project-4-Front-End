@@ -65,24 +65,23 @@ function App(props) {
     props.history.push("/home")
   };
 
-
-      function cleanup() {
-        document.body.classList.remove("index");
-      };
+  function cleanup() {
+    document.body.classList.remove("index");
+  }
   document.documentElement.classList.remove("nav-open");
-  
-  function effect(){
-    companySignin()
-    userSignin()
+
+  function effect() {
+    companySignin();
+    userSignin();
     document.body.classList.add("index");
   }
 
-      useEffect(() => {
-        effect()
-        return () => {
-          // cleanup()
-        }
-      },[])
+  useEffect(() => {
+    effect();
+    return () => {
+      // cleanup()
+    };
+  }, []);
 
   // useEffect(() => {
   //   // // userSignin();
@@ -109,6 +108,7 @@ function App(props) {
       <div className="main">
         <Switch>
           <Route path="/home" render={(props) => <Home {...props} />} />
+
             <Route
               path="/signup"
               render={(props) => <SignupTypes {...props} />}
@@ -178,7 +178,7 @@ function App(props) {
               />
               <Route
                 path="/edittrip/:id"
-                render={(props) => <EditPage {...props} />}
+                render={(props) => <EditPage {...props} company={company} />}
               />
               </>
             :
@@ -187,8 +187,6 @@ function App(props) {
             }
            </>
             }
-
-
           <Route path="/forgotpass" render={(props) => <Forgot {...props} />} />
           <Route
             path="/reset/:token"
